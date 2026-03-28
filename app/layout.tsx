@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { AppProviders } from "@/components/providers/AppProviders";
 import { SiteChrome } from "@/components/SiteChrome";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -93,6 +94,7 @@ export default function RootLayout({
         <AppProviders>
           <SiteChrome>{children}</SiteChrome>
         </AppProviders>
+        <Analytics />
       </body>
     </html>
   );
