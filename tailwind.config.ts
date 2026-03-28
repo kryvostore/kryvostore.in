@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      maxWidth: {
+        "8xl": "90rem", // 1440px
+      },
       fontFamily: {
         sans: ["'Roboto'", "system-ui", "sans-serif"],
         display: ["'Luxora Grotesk'", "system-ui", "sans-serif"],

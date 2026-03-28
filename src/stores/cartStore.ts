@@ -9,6 +9,7 @@ import {
   removeLineFromShopifyCart,
   storefrontApiRequest,
   CART_QUERY,
+  normalizeCheckoutUrl,
 } from '@/lib/shopify';
 import { useAuthStore } from './authStore';
 
@@ -127,7 +128,11 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => set({ items: [], cartId: null, checkoutUrl: null }),
-      getCheckoutUrl: () => get().checkoutUrl,
+      getCheckoutUrl: () => {
+        const url = get().checkoutUrl;
+        if (!url) return null;
+        return normalizeCheckoutUrl(url);
+      },
 
       syncCart: async () => {
         const { cartId, isSyncing, clearCart } = get();

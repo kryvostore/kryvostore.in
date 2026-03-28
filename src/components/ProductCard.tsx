@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { ShoppingCart, Loader2, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShopifyProduct } from "@/lib/shopify";
@@ -51,7 +53,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Link to={`/product/${node.handle}`} className="group block">
+    <Link href={`/product/${node.handle}`} className="group block">
       <div className="relative overflow-hidden rounded-xl bg-secondary transition-[transform,opacity,box-shadow,filter] duration-200 ease-out">
         <div className="aspect-square overflow-hidden">
           {image ? (

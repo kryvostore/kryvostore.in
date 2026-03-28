@@ -1,7 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cookie, X, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const COOKIE_KEY = "kryvo_cookie_consent";
 
@@ -37,7 +39,7 @@ export const CookieConsent = () => {
 					transition={{ type: "spring", stiffness: 300, damping: 30 }}
 					className="fixed bottom-0 left-0 right-0 z-[100] w-full px-6 pb-4 pt-2"
 				>
-					<div className="relative w-full max-w-6xl mx-auto bg-background/95 backdrop-blur-xl border border-border/60 rounded-[2rem] shadow-[0_8px_48px_rgba(0,0,0,0.16)] px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+					<div className="relative w-full max-w-7xl mx-auto bg-background/95 backdrop-blur-xl border border-border/60 rounded-[2rem] shadow-[0_8px_48px_rgba(0,0,0,0.16)] px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
 						{/* Icon */}
 						<div className="w-10 h-10 min-w-10 rounded-full bg-foreground flex items-center justify-center shadow-sm">
 							<Cookie className="h-4 w-4 text-background" />
@@ -52,7 +54,7 @@ export const CookieConsent = () => {
 								We use cookies to enhance your browsing experience and analyze
 								traffic.{" "}
 								<Link
-									to="/privacy"
+									href="/privacy"
 									className="underline underline-offset-2 hover:text-foreground transition-colors"
 									onClick={decline}
 								>
@@ -94,3 +96,5 @@ export const CookieConsent = () => {
 		</AnimatePresence>
 	);
 };
+
+

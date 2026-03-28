@@ -1,10 +1,12 @@
+"use client";
+
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Heart, Trash2, ShoppingCart, Loader2 } from "lucide-react";
 import { useFavoritesStore } from "@/stores/favoritesStore";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
 
 interface FavoritesDrawerProps {
   open: boolean;
@@ -69,7 +71,7 @@ export const FavoritesDrawer = ({ open, onOpenChange }: FavoritesDrawerProps) =>
                 {items.map((item) => (
                   <div key={item.variantId} className="flex gap-4 p-4 rounded-xl bg-secondary/30 border border-border/30 group">
                     <Link 
-                        to={`/product/${item.product.node.handle}`} 
+                        href={`/product/${item.product.node.handle}`} 
                         onClick={() => onOpenChange(false)}
                         className="w-20 h-20 bg-secondary rounded-lg overflow-hidden flex-shrink-0"
                     >
@@ -85,7 +87,7 @@ export const FavoritesDrawer = ({ open, onOpenChange }: FavoritesDrawerProps) =>
                     <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
                       <div>
                         <Link 
-                            to={`/product/${item.product.node.handle}`}
+                            href={`/product/${item.product.node.handle}`}
                             onClick={() => onOpenChange(false)}
                         >
                             <h4 className="font-medium text-[15px] truncate hover:text-foreground/80 transition-colors">

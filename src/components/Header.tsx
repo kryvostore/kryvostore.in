@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ShoppingCart, User, Heart, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,13 +29,13 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 	const [isAuthOpen, setIsAuthOpen] = useState(false);
 	const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
-	const location = useLocation();
+	const pathname = usePathname();
 	const totalItems = useCartStore((s) =>
 		s.items.reduce((sum, item) => sum + item.quantity, 0),
 	);
 	const totalFavorites = useFavoritesStore((s) => s.items.length);
 	const accessToken = useAuthStore((s) => s.accessToken);
-	const navigate = useNavigate();
+	const router = useRouter();
 
 	useEffect(() => {
 		const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -42,7 +45,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 
 	useEffect(() => {
 		setIsMobileMenuOpen(false);
-	}, [location]);
+	}, [pathname]);
 
 	return (
 		<header
@@ -52,10 +55,10 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 					: "bg-background"
 			}`}
 		>
-			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
+			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
 				<div className="flex items-center justify-between h-14 lg:h-16">
 					{/* Left logo */}
-					<Link to="/" className="group flex-shrink-0">
+					<Link href="/" className="group flex-shrink-0">
 						<img
 							src="/logo.png"
 							alt="KRYVO Logo"
@@ -68,9 +71,9 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						{navLinks.map((link) => (
 							<Link
 								key={link.to}
-								to={link.to}
+								href={link.to}
 								className={`text-[13px] font-medium transition-all duration-200 ease-out px-4 py-1.5 rounded-full tracking-wide ${
-									location.pathname === link.to
+									pathname === link.to
 										? "bg-background text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
 										: "text-muted-foreground/80 hover:text-foreground hover:bg-black/[0.02]"
 								}`}
@@ -121,7 +124,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 							size="icon"
 							className={`hidden lg:flex h-10 w-10 min-w-10 rounded-full transition-colors ${accessToken ? "bg-foreground text-background hover:bg-foreground hover:text-white" : "bg-secondary hover:bg-secondary/80 text-foreground"}`}
 							onClick={() =>
-								accessToken ? navigate("/account") : setIsAuthOpen(true)
+								accessToken ? router.push("/account") : setIsAuthOpen(true)
 							}
 						>
 							<User className="h-5 w-5" />
@@ -161,10 +164,10 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 					{navLinks.map((link) => (
 						<Link
 							key={link.to}
-							to={link.to}
+							href={link.to}
 							onClick={() => setIsMobileMenuOpen(false)}
 							className={`text-base font-medium transition-colors py-3 border-b border-border/40 ${
-								location.pathname === link.to
+								pathname === link.to
 									? "text-foreground"
 									: "text-muted-foreground"
 							}`}
@@ -173,7 +176,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						</Link>
 					))}
 					<Link
-						to="/track-order"
+						href="/track-order"
 						onClick={() => setIsMobileMenuOpen(false)}
 						className="text-base font-medium text-muted-foreground py-3 border-b border-border/40"
 					>
@@ -208,7 +211,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<button
 							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
 							onClick={() => {
-								accessToken ? navigate("/account") : setIsAuthOpen(true);
+								accessToken ? router.push("/account") : setIsAuthOpen(true);
 								setIsMobileMenuOpen(false);
 							}}
 						>
@@ -221,3 +224,5 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 		</header>
 	);
 };
+
+

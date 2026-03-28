@@ -1,9 +1,11 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Search, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface SearchDialogProps {
   open: boolean;
@@ -13,7 +15,7 @@ interface SearchDialogProps {
 export const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query), 300);
@@ -68,7 +70,7 @@ export const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                 <div 
                   key={product.id}
                   onClick={() => {
-                    navigate(`/product/${product.handle}`);
+                    router.push(`/product/${product.handle}`);
                     onOpenChange(false);
                   }}
                   className="flex items-center gap-5 p-4 rounded-3xl hover:bg-secondary/50 cursor-pointer transition-colors duration-200"

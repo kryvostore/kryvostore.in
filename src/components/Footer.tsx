@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
 	Facebook,
 	Twitter,
@@ -37,7 +39,7 @@ export const Footer = () => {
 
 	return (
 		<footer className="bg-background pt-32 pb-8 border-t border-border">
-			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
+			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
 				{/* Newsletter Section */}
 				<div className="bg-gradient-to-b from-[#FCFCFC] to-[#F8F8F8] rounded-[2.5rem] p-10 lg:p-20 text-center mb-24 lg:mb-32 relative overflow-hidden border border-black/[0.04] shadow-[0_2px_40px_-15px_rgba(0,0,0,0.03)]">
 					{/* Subtle staggered geometric block pattern background (CSS simulation) */}
@@ -114,7 +116,7 @@ export const Footer = () => {
 					{/* Brand & Socials */}
 					<div className="space-y-6">
 						<Link
-							to="/"
+							href="/"
 							className="flex items-center gap-3 font-display text-2xl font-bold tracking-tight group"
 						>
 							<span className="text-foreground pt-0.5">KRYVO STORE</span>
@@ -158,19 +160,19 @@ export const Footer = () => {
 						<h4 className="font-semibold text-lg mb-6 tracking-tight">Pages</h4>
 						<div className="flex flex-col gap-3.5">
 							<Link
-								to="/"
+								href="/"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Home
 							</Link>
 							<Link
-								to="/collections"
+								href="/collections"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Shop
 							</Link>
 							<Link
-								to="/about"
+								href="/about"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								About
@@ -183,22 +185,22 @@ export const Footer = () => {
 						<h4 className="font-semibold text-lg mb-6 tracking-tight">About</h4>
 						<div className="flex flex-col gap-3.5">
 							<Link
-								to="/contact"
+								href="/contact"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Contact & FAQ
 							</Link>
 							<Link
-								to="/collections"
+								href="/collections"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Product
 							</Link>
 							<Link
-								to="/404"
+								href="/track-order"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
-								Theme 404
+								Track order
 							</Link>
 						</div>
 					</div>
@@ -256,19 +258,19 @@ export const Footer = () => {
 					</p>
 					<div className="flex gap-6">
 						<Link
-							to="/terms"
+							href="/terms"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
 							Terms & Conditions
 						</Link>
 						<Link
-							to="/privacy"
+							href="/privacy"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
 							Privacy Policy
 						</Link>
 						<Link
-							to="/refund"
+							href="/refund"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
 							Cookies
@@ -279,3 +281,5 @@ export const Footer = () => {
 		</footer>
 	);
 };
+
+

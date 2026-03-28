@@ -1,6 +1,8 @@
+"use client";
+
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
@@ -20,7 +22,7 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
-      window.open(checkoutUrl, '_blank');
+      window.location.assign(checkoutUrl);
       onOpenChange(false);
     }
   };
@@ -77,6 +79,13 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
                 </div>
               </div>
               <div className="flex-shrink-0 space-y-4 pt-4 border-t border-border/30">
+                <Link
+                  href="/cart"
+                  className="block text-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => onOpenChange(false)}
+                >
+                  View full cart
+                </Link>
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-display font-semibold">Total</span>
                   <span className="text-xl font-bold text-primary">{items[0]?.price.currencyCode || '$'} {totalPrice.toFixed(2)}</span>
