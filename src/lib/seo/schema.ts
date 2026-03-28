@@ -1,3 +1,4 @@
+import { getFirstVariantFeaturedImageUrl } from "@/lib/seo/social-meta";
 import { getSiteUrl } from "@/lib/site";
 import {
   DEFAULT_DESCRIPTION,
@@ -99,7 +100,11 @@ export function breadcrumbListSchema(
 type ProductLike = {
   title: string;
   description?: string | null;
+  descriptionHtml?: string | null;
   handle: string;
+  productType?: string | null;
+  vendor?: string | null;
+  tags?: string[];
   images?: { edges: { node: { url: string; altText?: string | null } }[] };
   variants?: {
     edges: {
@@ -107,16 +112,28 @@ type ProductLike = {
         id: string;
         price: { amount: string; currencyCode: string };
         availableForSale?: boolean;
+        image?: { url: string; altText?: string | null } | null;
       };
     }[];
+  };
+  priceRange?: {
+    minVariantPrice?: { amount: string; currencyCode: string };
+    maxVariantPrice?: { amount: string; currencyCode: string };
   };
 };
 
 export function productSchema(product: ProductLike) {
   const site = getSiteUrl();
   const url = `${site}/product/${product.handle}`;
-  const images =
+  const galleryUrls =
     product.images?.edges?.map((e) => e.node.url).filter(Boolean) ?? [];
+  const variantHero = getFirstVariantFeaturedImageUrl(product);
+  const images =
+    galleryUrls.length > 0
+      ? galleryUrls
+      : variantHero
+        ? [variantHero]
+        : [getDefaultOgImage()];
   const variant = product.variants?.edges?.[0]?.node;
   const price = variant?.price;
   const availability = variant?.availableForSale
@@ -125,21 +142,29 @@ export function productSchema(product: ProductLike) {
 
   const plainDesc = (product.description || "")
     .replace(/<[^>]+>/g, "")
-    .trim()
-    .slice(0, 5000);
+    .trim();
+  const fromHtml = (product.descriptionHtml || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const descriptionText = (plainDesc || fromHtml || product.title).slice(
+    0,
+    5000,
+  );
 
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": `${url}/#product`,
     name: product.title,
-    description: plainDesc || product.title,
+    description: descriptionText,
     url,
     sku: variant?.id?.split("/").pop(),
-    image: images.length ? images : [getDefaultOgImage()],
+    image: images,
+    ...(product.productType && { category: product.productType }),
     brand: {
       "@type": "Brand",
-      name: SITE_NAME_SHORT,
+      name: product.vendor?.trim() || SITE_NAME_SHORT,
     },
     offers: price
       ? {

@@ -5,6 +5,8 @@ import {
   DEFAULT_DESCRIPTION,
   DEFAULT_KEYWORDS,
   SITE_NAME,
+  getDefaultOgImage,
+  getDefaultOpenGraphImages,
 } from "@/lib/seo/config";
 import { webPageSchema } from "@/lib/seo/schema";
 import { getSiteUrl } from "@/lib/site";
@@ -22,6 +24,14 @@ export const metadata: Metadata = {
     description:
       "Premium tech accessories and lifestyle products. Curated essentials for modern living.",
     url: canonical,
+    images: getDefaultOpenGraphImages(),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Home`,
+    description:
+      "Premium tech accessories and lifestyle products. Curated essentials for modern living.",
+    images: [getDefaultOgImage()],
   },
 };
 

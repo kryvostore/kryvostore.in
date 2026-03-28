@@ -35,7 +35,7 @@ const Contact = () => {
 			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
 				{/* Massive Hero Typography */}
 				<div className="text-center mb-24">
-					<h1 className="font-display tracking-[[-0.03em]] text-6xl font-normal leading-[0.95] mb-8">
+					<h1 className="font-display tracking-[-0.03em] text-6xl font-normal leading-[0.95] mb-8">
 						Get in Touch
 					</h1>
 					<p className="text-[17px] lg:text-[19px] text-muted-foreground/80 font-light leading-relaxed max-w-2xl mx-auto">
@@ -114,7 +114,7 @@ const Contact = () => {
 
 				{/* FAQ Section Appended */}
 				<div className="mt-40 pt-16 border-t border-border/40">
-					<h2 className="font-display tracking-[[-0.03em]] text-4xl lg:text-5xl font-normal leading-[0.95] mb-4 text-center">
+					<h2 className="font-display tracking-[-0.03em] text-4xl lg:text-5xl font-normal leading-[0.95] mb-4 text-center">
 						Frequently Asked Questions
 					</h2>
 					<p className="text-[16px] text-muted-foreground/80 font-light leading-relaxed max-w-2xl mx-auto text-center mb-16">

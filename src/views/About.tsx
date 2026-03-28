@@ -6,7 +6,7 @@ const About = () => {
 			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
 				{/* Massive Hero Typography */}
 				<div className="mb-32">
-					<h1 className="font-display tracking-[[-0.03em]] text-6xl lg:text-7xl font-medium leading-[0.95] mb-8">
+					<h1 className="font-display tracking-[-0.03em] text-6xl lg:text-7xl font-medium leading-[0.95] mb-8">
 						About <br className="hidden lg:block" /> Kryvo Store
 					</h1>
 					<p className="text-[17px] lg:text-[19px] text-muted-foreground/80 font-light leading-relaxed max-w-2xl">

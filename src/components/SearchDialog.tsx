@@ -34,7 +34,9 @@ export const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     queryFn: async () => {
       if (!debouncedQuery) return [];
       const res = await storefrontApiRequest(PRODUCTS_QUERY, { first: 5, query: debouncedQuery });
-      return res?.data?.products?.edges?.map((e: any) => e.node) as ShopifyProduct["node"][];
+      return (res?.data?.products?.edges ?? []).map(
+        (e: { node: ShopifyProduct["node"] }) => e.node,
+      );
     },
     enabled: !!debouncedQuery && open,
   });

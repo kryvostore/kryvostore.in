@@ -2,17 +2,33 @@ import { getCheckoutOrigin } from "@/lib/site";
 
 const DEFAULT_API_VERSION = "2025-07";
 
-/** Server-side Shopify GraphQL URL + token (SSR, API route, sitemap). Not used in the browser. */
-export function getStorefrontEndpoint(): { url: string; token: string } {
-  const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
-  const token =
-    process.env.SHOPIFY_STOREFRONT_TOKEN ||
-    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN;
-  if (!domain || !token) {
+/**
+ * Normalizes shop domain from env (handles pasted URLs like https://shop.myshopify.com/...).
+ */
+export function normalizeShopifyDomain(raw: string): string {
+  let d = raw.trim().toLowerCase();
+  d = d.replace(/^https?:\/\//, "");
+  d = (d.split("/")[0] ?? d).trim();
+  if (!d || !d.includes(".")) {
     throw new Error(
-      "Shopify Storefront: set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN or NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN (see .env.example).",
+      "NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN must be your store hostname (e.g. kryvo-store.myshopify.com), no https://",
     );
   }
+  return d;
+}
+
+/** Server-side Shopify GraphQL URL + token (SSR, API route, sitemap). Not used in the browser. */
+export function getStorefrontEndpoint(): { url: string; token: string } {
+  const rawDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+  const token =
+    process.env.SHOPIFY_STOREFRONT_TOKEN?.trim() ||
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN?.trim();
+  if (!rawDomain?.trim() || !token) {
+    throw new Error(
+      "Shopify Storefront: set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN (or NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN). See .env.example.",
+    );
+  }
+  const domain = normalizeShopifyDomain(rawDomain);
   const version =
     process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || DEFAULT_API_VERSION;
   return {
@@ -39,18 +55,25 @@ export function normalizeCheckoutUrl(checkoutUrl: string): string {
   }
 }
 
+/** Raw GraphQL envelope from Shopify or /api/storefront proxy. */
+export type StorefrontGraphQLResult = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- GraphQL shape varies by query
+  data?: any;
+  errors?: { message: string }[];
+};
+
 export async function storefrontApiRequest(
   query: string,
   variables: Record<string, unknown> = {},
-) {
-  const payload = JSON.stringify({ query, variables });
+): Promise<StorefrontGraphQLResult> {
+  const requestBody = JSON.stringify({ query, variables });
 
-  // Browser → same-origin API proxy (avoids Shopify CORS blocking localhost / custom domains).
+  // Browser → same-origin API proxy (avoids Shopify CORS). Use absolute URL so nested routes / previews resolve correctly.
   const response = isBrowser()
-    ? await fetch("/api/storefront", {
+    ? await fetch(`${window.location.origin}/api/storefront`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: payload,
+        body: requestBody,
       })
     : await (() => {
         const { url, token } = getStorefrontEndpoint();
@@ -60,9 +83,19 @@ export async function storefrontApiRequest(
             "Content-Type": "application/json",
             "X-Shopify-Storefront-Access-Token": token,
           },
-          body: payload,
+          body: requestBody,
         });
       })();
+
+  const text = await response.text();
+  let payload: StorefrontGraphQLResult;
+  try {
+    payload = text ? (JSON.parse(text) as StorefrontGraphQLResult) : {};
+  } catch {
+    throw new Error(
+      `Shopify proxy returned non-JSON (HTTP ${response.status}). Confirm /api/storefront exists and Next.js is running from the project root. Body: ${text.slice(0, 160)}`,
+    );
+  }
 
   if (response.status === 402) {
     throw new Error(
@@ -70,17 +103,19 @@ export async function storefrontApiRequest(
     );
   }
 
-  if (!response.ok) {
-    throw new Error(`Shopify HTTP error: ${response.status}`);
-  }
-
-  const data = await response.json();
-  if (data.errors) {
+  if (payload.errors?.length) {
     throw new Error(
-      `Shopify GraphQL: ${data.errors.map((e: { message: string }) => e.message).join(", ")}`,
+      `Shopify GraphQL: ${payload.errors.map((e) => e.message).join(", ")}`,
     );
   }
-  return data;
+
+  if (!response.ok) {
+    throw new Error(
+      `Shopify HTTP ${response.status}. Check Storefront token and domain in env (Vercel: Production env vars).`,
+    );
+  }
+
+  return payload;
 }
 
 export interface ShopifyProduct {
@@ -196,8 +231,15 @@ export const PRODUCT_BY_HANDLE_QUERY = `
       description
       descriptionHtml
       handle
+      productType
+      vendor
+      tags
       priceRange {
         minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
           amount
           currencyCode
         }
@@ -207,6 +249,8 @@ export const PRODUCT_BY_HANDLE_QUERY = `
           node {
             url
             altText
+            width
+            height
           }
         }
       }
@@ -449,6 +493,70 @@ export const CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION = `
   }
 `;
 
+export const CUSTOMER_UPDATE_MUTATION = `
+  mutation customerUpdate(
+    $customerAccessToken: String!
+    $customer: CustomerUpdateInput!
+  ) {
+    customerUpdate(
+      customerAccessToken: $customerAccessToken
+      customer: $customer
+    ) {
+      customer {
+        id
+        firstName
+        lastName
+        email
+        phone
+      }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export type CustomerProfileUpdateInput = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  /** E.164 recommended, e.g. +919061061442. Empty string clears the phone. */
+  phone: string;
+};
+
+export async function updateCustomerProfile(
+  customerAccessToken: string,
+  customer: CustomerProfileUpdateInput,
+) {
+  const phoneTrimmed = customer.phone.trim();
+  const data = await storefrontApiRequest(CUSTOMER_UPDATE_MUTATION, {
+    customerAccessToken,
+    customer: {
+      firstName: customer.firstName.trim(),
+      lastName: customer.lastName.trim(),
+      email: customer.email.trim(),
+      phone: phoneTrimmed.length > 0 ? phoneTrimmed : null,
+    },
+  });
+  const payload = data?.data?.customerUpdate;
+  if (payload?.customerUserErrors?.length > 0) {
+    throw new Error(payload.customerUserErrors[0].message);
+  }
+  return {
+    customer: payload?.customer ?? null,
+    customerAccessToken: payload?.customerAccessToken as
+      | { accessToken: string; expiresAt: string }
+      | null
+      | undefined,
+  };
+}
+
 export const GET_CUSTOMER_QUERY = `
   query getCustomer($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
@@ -473,6 +581,7 @@ export const GET_CUSTOMER_QUERY = `
             processedAt
             financialStatus
             fulfillmentStatus
+            statusUrl
             totalPrice {
               amount
               currencyCode

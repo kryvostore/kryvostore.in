@@ -6,7 +6,6 @@ import {
   DEFAULT_DESCRIPTION,
   DEFAULT_KEYWORDS,
   SITE_NAME,
-  getDefaultOgImage,
   getTwitterHandle,
 } from "@/lib/seo/config";
 import { organizationSchema, webSiteSchema } from "@/lib/seo/schema";
@@ -37,11 +36,13 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: site }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: "/logo.png",
   },
+  // Do not set openGraph.images here — child routes (e.g. /product/[slug]) would merge with
+  // the logo and WhatsApp/Facebook often pick the first og:image (the logo). Set per-page instead.
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -49,20 +50,16 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — Premium tech & lifestyle`,
     description: DEFAULT_DESCRIPTION,
-    images: [
-      {
-        url: getDefaultOgImage(),
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} — premium tech accessories and lifestyle products`,
-      },
-    ],
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
-    images: [getDefaultOgImage()],
     ...(tw && { site: tw, creator: tw }),
   },
   robots: {

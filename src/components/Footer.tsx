@@ -172,10 +172,22 @@ export const Footer = () => {
 								Shop
 							</Link>
 							<Link
+								href="/cart"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
+							>
+								Cart
+							</Link>
+							<Link
 								href="/about"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								About
+							</Link>
+							<Link
+								href="/contact"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
+							>
+								Contact
 							</Link>
 						</div>
 					</div>
@@ -273,7 +285,7 @@ export const Footer = () => {
 							href="/refund"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
-							Cookies
+							Returns & refunds
 						</Link>
 					</div>
 				</div>

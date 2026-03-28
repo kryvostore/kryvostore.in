@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getSiteUrl } from "@/lib/site";
 
 export const SITE_NAME = "KRYVO STORE";
@@ -23,6 +24,21 @@ export function getDefaultOgImage(): string {
   const custom = process.env.NEXT_PUBLIC_OG_IMAGE_URL?.trim();
   if (custom) return custom.startsWith("http") ? custom : `${getSiteUrl()}${custom}`;
   return `${getSiteUrl()}/logo.png`;
+}
+
+/** Default OG image card for static pages (home, collections, etc.). Not used on product URLs. */
+export function getDefaultOpenGraphImages(): NonNullable<
+  NonNullable<Metadata["openGraph"]>["images"]
+> {
+  const url = getDefaultOgImage();
+  return [
+    {
+      url,
+      width: 1200,
+      height: 630,
+      alt: `${SITE_NAME} — premium tech accessories and lifestyle products`,
+    },
+  ];
 }
 
 export function getTwitterHandle(): string | undefined {

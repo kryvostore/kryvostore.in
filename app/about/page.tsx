@@ -3,7 +3,7 @@ import About from "@/views/About";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { webPageSchema } from "@/lib/seo/schema";
 import { getSiteUrl } from "@/lib/site";
-import { DEFAULT_KEYWORDS } from "@/lib/seo/config";
+import { DEFAULT_KEYWORDS, getDefaultOpenGraphImages } from "@/lib/seo/config";
 
 const path = "/about";
 const canonical = `${getSiteUrl()}${path}`;
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "About KRYVO",
     description: desc,
     url: canonical,
+    images: getDefaultOpenGraphImages(),
   },
 };
 

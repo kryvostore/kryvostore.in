@@ -14,9 +14,10 @@ import { AuthDialog } from "@/components/AuthDialog";
 import { SearchDialog } from "@/components/SearchDialog";
 
 const navLinks = [
-	{ to: "/collections", label: "All Product" },
+	{ to: "/collections", label: "All Products" },
 	{ to: "/about", label: "About Us" },
 	{ to: "/contact", label: "Contact" },
+	{ to: "/track-order", label: "Track order" },
 ];
 
 interface HeaderProps {
@@ -123,9 +124,10 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 							variant="ghost"
 							size="icon"
 							className={`hidden lg:flex h-10 w-10 min-w-10 rounded-full transition-colors ${accessToken ? "bg-foreground text-background hover:bg-foreground hover:text-white" : "bg-secondary hover:bg-secondary/80 text-foreground"}`}
-							onClick={() =>
-								accessToken ? router.push("/account") : setIsAuthOpen(true)
-							}
+							onClick={() => {
+								if (accessToken) router.push("/account");
+								else setIsAuthOpen(true);
+							}}
 						>
 							<User className="h-5 w-5" />
 						</Button>
@@ -175,13 +177,6 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 							{link.label}
 						</Link>
 					))}
-					<Link
-						href="/track-order"
-						onClick={() => setIsMobileMenuOpen(false)}
-						className="text-base font-medium text-muted-foreground py-3 border-b border-border/40"
-					>
-						Track Order
-					</Link>
 
 					{/* Mobile Secondary Actions (Search, Favorites, Account) */}
 					<div className="flex flex-col gap-1 pt-2 mt-2">
@@ -211,7 +206,8 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<button
 							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
 							onClick={() => {
-								accessToken ? router.push("/account") : setIsAuthOpen(true);
+								if (accessToken) router.push("/account");
+								else setIsAuthOpen(true);
 								setIsMobileMenuOpen(false);
 							}}
 						>

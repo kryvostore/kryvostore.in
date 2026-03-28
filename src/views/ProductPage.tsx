@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
+import {
+	storefrontApiRequest,
+	PRODUCT_BY_HANDLE_QUERY,
+	type ShopifyProduct,
+} from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { useFavoritesStore } from "@/stores/favoritesStore";
 import { Button } from "@/components/ui/button";
+import { ProductPageSkeleton } from "@/components/skeletons/ProductPageSkeleton";
 import {
 	ShoppingCart,
 	Loader2,
@@ -25,7 +30,11 @@ import {
 import { toast } from "sonner";
 import { useProducts } from "@/hooks/useProducts";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductShare } from "@/components/ProductShare";
 import { useRef } from "react";
+
+type VariantEdge = ShopifyProduct["node"]["variants"]["edges"][number];
+type ImageEdge = ShopifyProduct["node"]["images"]["edges"][number];
 
 const COLOR_MAP: Record<string, string> = {
 	White: "#f8f9fa",
@@ -88,13 +97,19 @@ const ProductPage = () => {
 		enabled: !!handle,
 	});
 
-	const images = product?.images?.edges || [];
-	const variants = product?.variants?.edges || [];
+	const images = useMemo(
+		() => product?.images?.edges ?? [],
+		[product],
+	);
+	const variants = useMemo(
+		() => product?.variants?.edges ?? [],
+		[product],
+	);
 
 	const selectedVariant =
-		variants.find((v: any) =>
+		variants.find((v: VariantEdge) =>
 			v.node.selectedOptions.every(
-				(opt: any) => selectedOptions[opt.name] === opt.value,
+				(opt) => selectedOptions[opt.name] === opt.value,
 			),
 		)?.node || variants[0]?.node;
 
@@ -102,7 +117,7 @@ const ProductPage = () => {
 	useEffect(() => {
 		if (selectedVariant?.image?.url && images.length > 0) {
 			const variantImageIndex = images.findIndex(
-				(img: any) => img.node.url === selectedVariant.image.url,
+				(img: ImageEdge) => img.node.url === selectedVariant.image?.url,
 			);
 			if (variantImageIndex !== -1) {
 				setSelectedImage(variantImageIndex);
@@ -111,11 +126,7 @@ const ProductPage = () => {
 	}, [selectedVariant, images]);
 
 	if (isLoading) {
-		return (
-			<div className="min-h-screen flex items-center justify-center pt-20">
-				<Loader2 className="h-10 w-10 animate-spin text-foreground" />
-			</div>
-		);
+		return <ProductPageSkeleton />;
 	}
 
 	if (!product) {
@@ -131,7 +142,7 @@ const ProductPage = () => {
 		setIsRedirecting(true);
 		try {
 			await addItem({
-				product: { node: product },
+				product: { node: product } as ShopifyProduct,
 				variantId: selectedVariant.id,
 				variantTitle: selectedVariant.title,
 				price: selectedVariant.price,
@@ -162,7 +173,7 @@ const ProductPage = () => {
 			removeFavorite(selectedVariant.id);
 			toast.success("Removed from favorites");
 		} else {
-			addFavorite({ node: product } as any, selectedVariant.id);
+			addFavorite({ node: product } as ShopifyProduct, selectedVariant.id);
 			toast.success("Added to favorites", { description: product.title });
 		}
 	};
@@ -194,7 +205,7 @@ const ProductPage = () => {
 									ref={scrollContainerRef}
 									className="flex lg:flex-col overflow-x-auto lg:overflow-x-hidden lg:overflow-y-auto gap-3 sm:gap-4 snap-x lg:snap-y snap-mandatory pt-1 pb-1 scrollbar-none scroll-smooth lg:absolute lg:inset-0"
 								>
-									{images.map((img: any, i: number) => (
+									{images.map((img: ImageEdge, i: number) => (
 										<button
 											type="button"
 											key={i}
@@ -302,8 +313,8 @@ const ProductPage = () => {
 							{/* Product Options */}
 							<div className="flex flex-col gap-5 w-full">
 								{product.options
-									?.filter((o: any) => o.name !== "Title")
-									.map((option: any) => (
+									?.filter((o) => o.name !== "Title")
+									.map((option) => (
 										<div key={option.name}>
 											<label
 												htmlFor={option.name}
@@ -424,10 +435,15 @@ const ProductPage = () => {
 							</Button>
 						</div>
 
-						<p className="text-[11px] text-muted-foreground/60 text-center leading-relaxed mb-8 max-w-[90%] mx-auto">
-							Estimate delivery times: 3-6 days (International) Return within 45
-							days of purchase. Duties & taxes are non-refundable.
+						<p className="mb-6 max-w-[95%] text-left text-[12px] leading-relaxed text-muted-foreground">
+							<span className="text-foreground/90">Shipping &amp; returns:</span>{" "}
+							Estimated delivery 3–6 days (international). Returns within 45 days
+							of purchase. Duties and taxes are non-refundable.
 						</p>
+
+						{handle ? (
+							<ProductShare title={product.title} slug={handle} />
+						) : null}
 
 						{/* Light Bar with guarantees */}
 						{/* <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center bg-[#f8f9fa] dark:bg-secondary/20 rounded-[1rem] px-6 py-4 gap-4 sm:gap-2 border border-border/30 shadow-sm">

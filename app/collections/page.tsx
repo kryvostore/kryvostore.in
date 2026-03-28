@@ -4,8 +4,8 @@ import Collections from "@/views/Collections";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { webPageSchema } from "@/lib/seo/schema";
 import { getSiteUrl } from "@/lib/site";
-import { DEFAULT_KEYWORDS } from "@/lib/seo/config";
-import { Loader2 } from "lucide-react";
+import { DEFAULT_KEYWORDS, getDefaultOpenGraphImages } from "@/lib/seo/config";
+import { CollectionsPageSkeleton } from "@/components/skeletons/CollectionsPageSkeleton";
 
 const path = "/collections";
 const canonical = `${getSiteUrl()}${path}`;
@@ -21,16 +21,9 @@ export const metadata: Metadata = {
     title: "Shop — All products | KRYVO",
     description: desc,
     url: canonical,
+    images: getDefaultOpenGraphImages(),
   },
 };
-
-function CollectionsLoading() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background pt-32">
-      <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-    </div>
-  );
-}
 
 export default function CollectionsPage() {
   return (
@@ -42,7 +35,7 @@ export default function CollectionsPage() {
           path,
         })}
       />
-      <Suspense fallback={<CollectionsLoading />}>
+      <Suspense fallback={<CollectionsPageSkeleton />}>
         <Collections />
       </Suspense>
     </>

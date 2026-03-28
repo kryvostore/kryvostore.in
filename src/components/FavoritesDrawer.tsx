@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Heart, Trash2, ShoppingCart, Loader2 } from "lucide-react";
-import { useFavoritesStore } from "@/stores/favoritesStore";
+import { useFavoritesStore, type FavoriteItem } from "@/stores/favoritesStore";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 
@@ -18,7 +18,7 @@ export const FavoritesDrawer = ({ open, onOpenChange }: FavoritesDrawerProps) =>
   const addItemToCart = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
 
-  const handleAddToCart = async (item: any) => {
+  const handleAddToCart = async (item: FavoriteItem) => {
     const variant = item.product.node.variants.edges[0]?.node;
     if (!variant) return;
 
