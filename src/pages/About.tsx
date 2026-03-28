@@ -1,8 +1,14 @@
 import { Zap, Heart, Target } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const About = () => {
 	return (
 		<div className="min-h-screen bg-background pt-[140px] pb-32">
+			<SEO
+				title="About Us"
+				description="Learn about KRYVO — our mission, values, and story. We curate the world's finest premium tech accessories and lifestyle products for modern living."
+				url="https://kryvo.store/about"
+			/>
 			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
 				{/* Massive Hero Typography */}
 				<div className="mb-32">

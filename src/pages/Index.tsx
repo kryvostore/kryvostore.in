@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SEO } from "@/components/SEO";
 
 const heroProduct =
 	"/generated/product_headphones_transparent_1774676465954.png";
@@ -14,6 +15,10 @@ const avatar2 = "/generated/avatar_2_1774675181855.png";
 const Index = () => {
 	return (
 		<div className="min-h-screen bg-background pb-20 font-sans">
+			<SEO 
+				title="Home" 
+				description="Shop the best premium tech accessories and lifestyle products at KRYVO. Discover highly curated essentials to elevate your daily routine."
+			/>
 			{/* Hero Section */}
 			<section className="pt-24 lg:pt-32 pb-12">
 				<div className="container mx-auto px-6 lg:px-8 max-w-6xl">

@@ -9,7 +9,7 @@ import {
 	Phone,
 	Mail,
 	Loader2,
-	CheckCircle2
+	CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,7 @@ export const Footer = () => {
 		setTimeout(() => {
 			setStatus("success");
 			setEmail("");
-			
+
 			// Reset success message after 5 seconds
 			setTimeout(() => {
 				setStatus("idle");
@@ -39,7 +39,7 @@ export const Footer = () => {
 		<footer className="bg-background pt-32 pb-8 border-t border-border">
 			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
 				{/* Newsletter Section */}
-				<div className="bg-[#FCFCFC] rounded-[2.5rem] p-10 lg:p-24 text-center mb-32 relative overflow-hidden border border-black/[0.04]">
+				<div className="bg-gradient-to-b from-[#FCFCFC] to-[#F8F8F8] rounded-[2.5rem] p-10 lg:p-20 text-center mb-24 lg:mb-32 relative overflow-hidden border border-black/[0.04] shadow-[0_2px_40px_-15px_rgba(0,0,0,0.03)]">
 					{/* Subtle staggered geometric block pattern background (CSS simulation) */}
 					<div className="absolute inset-0 pointer-events-none flex items-stretch overflow-hidden mix-blend-multiply opacity-60">
 						<div className="flex-1 border-r border-black/[0.02] bg-black/[0.01] mt-20"></div>
@@ -66,7 +66,10 @@ export const Footer = () => {
 							<br className="hidden sm:block" /> product launches by subscribing
 							to our newsletter.
 						</p>
-						<form onSubmit={handleSubscribe} className="w-full max-w-[480px] mx-auto">
+						<form
+							onSubmit={handleSubscribe}
+							className="w-full max-w-[480px] mx-auto"
+						>
 							<div className="flex items-center bg-background rounded-full p-2 w-full shadow-sm border border-border/50 transition-all focus-within:shadow-md focus-within:border-foreground/30 hover:border-border/80">
 								<Input
 									type="email"
@@ -77,9 +80,11 @@ export const Footer = () => {
 									onChange={(e) => setEmail(e.target.value)}
 									className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent h-[46px] px-6 shadow-none flex-1 text-[15px] placeholder:text-muted-foreground/60 placeholder:font-light disabled:opacity-50"
 								/>
-								<Button 
-									type="submit" 
-									disabled={status === "loading" || status === "success" || !email}
+								<Button
+									type="submit"
+									disabled={
+										status === "loading" || status === "success" || !email
+									}
 									className="rounded-full bg-foreground text-background hover:bg-foreground/80 h-[48px] px-8 font-medium text-[14px] shadow-none transition-all duration-[200ms] active:scale-[0.97]"
 								>
 									{status === "loading" ? (
@@ -91,11 +96,12 @@ export const Footer = () => {
 									)}
 								</Button>
 							</div>
-							
+
 							<div className="mt-4 h-6 flex items-center justify-center overflow-hidden">
 								{status === "success" && (
 									<p className="text-[#329971] text-[14px] font-medium flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
-										<CheckCircle2 className="w-4 h-4" /> You've been successfully added to our list!
+										<CheckCircle2 className="w-4 h-4" /> You've been
+										successfully added to our list!
 									</p>
 								)}
 							</div>
@@ -109,70 +115,63 @@ export const Footer = () => {
 					<div className="space-y-6">
 						<Link
 							to="/"
-							className="flex items-center gap-2 font-display text-2xl font-bold tracking-tight"
+							className="flex items-center gap-3 font-display text-2xl font-bold tracking-tight group"
 						>
-							<svg
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								className="w-8 h-8 text-foreground"
-								aria-label="Logo"
-							>
-								<path d="M4 4l8 8-8 8V4z" />
-								<path d="M12 4l8 8-8 8V4z" />
-							</svg>
-							<span className="text-foreground">KRYVO STORE</span>
+							<span className="text-foreground pt-0.5">KRYVO STORE</span>
 						</Link>
-						<p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-							Selling Premium Products, Designed To Elevate Your Everyday
-							Experience
+						<p className="text-[14px] text-muted-foreground/90 leading-relaxed max-w-xs">
+							Selling premium tech products, designed to elevate your everyday
+							experience.
 						</p>
-						<div className="flex items-center gap-4">
+						<div className="flex items-center gap-3 pt-2">
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary text-foreground hover:bg-foreground hover:text-background transition-colors"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
 							>
-								<Facebook className="h-4 w-4" />
+								<Facebook className="h-[18px] w-[18px]" />
 							</a>
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary text-foreground hover:bg-foreground hover:text-background transition-colors"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
 							>
-								<Twitter className="h-4 w-4" />
+								<Twitter className="h-[18px] w-[18px]" />
+							</a>
+							<a
+								href="https://www.instagram.com/kryvostore.in?igsh=bHY2aXo4ajYwMnMy"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+							>
+								<Instagram className="h-[18px] w-[18px]" />
 							</a>
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary text-foreground hover:bg-foreground hover:text-background transition-colors"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
 							>
-								<Instagram className="h-4 w-4" />
-							</a>
-							<a
-								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary text-foreground hover:bg-foreground hover:text-background transition-colors"
-							>
-								<Linkedin className="h-4 w-4" />
+								<Linkedin className="h-[18px] w-[18px]" />
 							</a>
 						</div>
 					</div>
 
 					{/* Pages */}
 					<div>
-						<h4 className="font-semibold text-lg mb-6">Pages</h4>
-						<div className="flex flex-col gap-4">
+						<h4 className="font-semibold text-lg mb-6 tracking-tight">Pages</h4>
+						<div className="flex flex-col gap-3.5">
 							<Link
 								to="/"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Home
 							</Link>
 							<Link
 								to="/collections"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Shop
 							</Link>
 							<Link
 								to="/about"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								About
 							</Link>
@@ -181,59 +180,79 @@ export const Footer = () => {
 
 					{/* About */}
 					<div>
-						<h4 className="font-semibold text-lg mb-6">About</h4>
-						<div className="flex flex-col gap-4">
+						<h4 className="font-semibold text-lg mb-6 tracking-tight">About</h4>
+						<div className="flex flex-col gap-3.5">
 							<Link
 								to="/contact"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Contact & FAQ
 							</Link>
 							<Link
 								to="/collections"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
 								Product
 							</Link>
 							<Link
 								to="/404"
-								className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
 							>
-								404
+								Theme 404
 							</Link>
 						</div>
 					</div>
 
 					{/* Contact Us */}
 					<div>
-						<h4 className="font-semibold text-lg mb-6">Contact Us</h4>
+						<h4 className="font-semibold text-lg mb-6 tracking-tight">
+							Contact Us
+						</h4>
 						<div className="flex flex-col gap-5">
-							<div className="flex items-start gap-3 text-sm text-muted-foreground">
-								<div className="mt-0.5 h-8 w-8 shrink-0 rounded-full border border-border flex items-center justify-center">
-									<MapPin className="h-4 w-4" />
+							<div className="flex items-start gap-3.5 text-[14px] text-muted-foreground/90 leading-relaxed group">
+								<div className="mt-0.5 h-9 w-9 shrink-0 rounded-full bg-secondary/80 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
+									<MapPin className="h-[16px] w-[16px]" />
 								</div>
-								<span>123 Smart Ave, Tech District, SV 90210</span>
+								<span className="pt-1.5">Kuttikkatoor, Kozhikode, Kerala</span>
 							</div>
-							<div className="flex items-center gap-3 text-sm text-muted-foreground">
-								<div className="h-8 w-8 shrink-0 rounded-full border border-border flex items-center justify-center">
-									<Phone className="h-4 w-4" />
+							<div className="flex items-start gap-3.5 text-[14px] text-muted-foreground/90 leading-relaxed group">
+								<div className="mt-0.5 h-9 w-9 shrink-0 rounded-full bg-secondary/80 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
+									<Phone className="h-[16px] w-[16px]" />
 								</div>
-								<span>+1 (555) 123-4567</span>
+								<div className="flex flex-col pt-1.5 gap-1">
+									<a
+										href="tel:+919061061442"
+										className="hover:text-foreground transition-colors"
+									>
+										+91 90610 61442
+									</a>
+									<a
+										href="tel:+919605655712"
+										className="hover:text-foreground transition-colors"
+									>
+										+91 96056 55712
+									</a>
+								</div>
 							</div>
-							<div className="flex items-center gap-3 text-sm text-muted-foreground">
-								<div className="h-8 w-8 shrink-0 rounded-full border border-border flex items-center justify-center">
-									<Mail className="h-4 w-4" />
+							<div className="flex items-center gap-3.5 text-[14px] text-muted-foreground/90 leading-relaxed group">
+								<div className="h-9 w-9 shrink-0 rounded-full bg-secondary/80 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
+									<Mail className="h-[16px] w-[16px]" />
 								</div>
-								<span>support@kryvostore.com</span>
+								<a
+									href="mailto:kryvostore.in@gmail.com"
+									className="hover:text-foreground transition-colors"
+								>
+									kryvostore.in@gmail.com
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				{/* Copyright */}
-				<div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-					<p className="text-xs text-muted-foreground">
-						© {new Date().getFullYear()} KRYVO STORE. All rights reserved.
+				<div className="pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between items-center gap-4">
+					<p className="text-[13px] text-muted-foreground/80 font-light">
+						© {new Date().getFullYear()} KRYVO. All rights reserved.
 					</p>
 					<div className="flex gap-6">
 						<Link

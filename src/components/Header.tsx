@@ -11,156 +11,213 @@ import { AuthDialog } from "@/components/AuthDialog";
 import { SearchDialog } from "@/components/SearchDialog";
 
 const navLinks = [
-  { to: "/collections", label: "All Product" },
-  { to: "/about", label: "About Us" },
-  { to: "/contact", label: "Contact" },
+	{ to: "/collections", label: "All Product" },
+	{ to: "/about", label: "About Us" },
+	{ to: "/contact", label: "Contact" },
 ];
 
 interface HeaderProps {
-  onCartOpen: () => void;
+	onCartOpen: () => void;
 }
 
 export const Header = ({ onCartOpen }: HeaderProps) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const location = useLocation();
-  const totalItems = useCartStore(s => s.items.reduce((sum, item) => sum + item.quantity, 0));
-  const totalFavorites = useFavoritesStore(s => s.items.length);
-  const accessToken = useAuthStore(s => s.accessToken);
-  const navigate = useNavigate();
+	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isAuthOpen, setIsAuthOpen] = useState(false);
+	const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const location = useLocation();
+	const totalItems = useCartStore((s) =>
+		s.items.reduce((sum, item) => sum + item.quantity, 0),
+	);
+	const totalFavorites = useFavoritesStore((s) => s.items.length);
+	const accessToken = useAuthStore((s) => s.accessToken);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+	useEffect(() => {
+		const handleScroll = () => setIsScrolled(window.scrollY > 20);
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
+	useEffect(() => {
+		setIsMobileMenuOpen(false);
+	}, [location]);
 
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-background"
-      }`}
-    >
-      <div className="container mx-auto px-6 lg:px-8 max-w-6xl">
-        <div className="flex items-center justify-between h-14 lg:h-16">
-          {/* Mobile menu toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+	return (
+		<header
+			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+				isScrolled
+					? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
+					: "bg-background"
+			}`}
+		>
+			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
+				<div className="flex items-center justify-between h-14 lg:h-16">
+					{/* Left logo */}
+					<Link to="/" className="group flex-shrink-0">
+						<img
+							src="/logo.png"
+							alt="KRYVO Logo"
+							className="w-24 h-24 sm:w-28 sm:h-28 object-contain -ml-2 group-hover:scale-105 transition-transform duration-300 dark:invert"
+						/>
+					</Link>
 
-          {/* Left logo */}
-          <Link to="/" className="flex items-center gap-2 font-display text-xl lg:text-2xl font-bold tracking-tight">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-foreground">
-              <path d="M4 4l8 8-8 8V4z" />
-              <path d="M12 4l8 8-8 8V4z" />
-            </svg>
-            <span className="text-foreground">KRYVO STORE</span>
-          </Link>
+					{/* Center nav links */}
+					<nav className="hidden lg:flex items-center gap-1 bg-secondary/60 rounded-full px-2 py-1.5 border border-secondary shadow-inner absolute left-1/2 -translate-x-1/2">
+						{navLinks.map((link) => (
+							<Link
+								key={link.to}
+								to={link.to}
+								className={`text-[13px] font-medium transition-all duration-200 ease-out px-4 py-1.5 rounded-full tracking-wide ${
+									location.pathname === link.to
+										? "bg-background text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+										: "text-muted-foreground/80 hover:text-foreground hover:bg-black/[0.02]"
+								}`}
+							>
+								{link.label}
+							</Link>
+						))}
+					</nav>
 
-          {/* Center nav links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-sm font-medium transition-colors duration-150 ease-out hover:text-foreground/80 active:scale-[0.97] ${
-                  location.pathname === link.to ? "text-foreground" : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+					{/* Right icons */}
+					<div className="flex items-center gap-1 sm:gap-2">
+						<Button
+							variant="ghost"
+							size="icon"
+							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							onClick={() => setIsSearchOpen(true)}
+						>
+							<Search className="h-5 w-5" />
+						</Button>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							onClick={() => setIsFavoritesOpen(true)}
+						>
+							<Heart className="h-5 w-5" />
+							{totalFavorites > 0 && (
+								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
+									{totalFavorites}
+								</Badge>
+							)}
+						</Button>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							onClick={onCartOpen}
+						>
+							<ShoppingCart className="h-5 w-5" />
+							{totalItems > 0 && (
+								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
+									{totalItems}
+								</Badge>
+							)}
+						</Button>
+						<Button
+							variant="ghost"
+							size="icon"
+							className={`hidden lg:flex h-10 w-10 min-w-10 rounded-full transition-colors ${accessToken ? "bg-foreground text-background hover:bg-foreground hover:text-white" : "bg-secondary hover:bg-secondary/80 text-foreground"}`}
+							onClick={() =>
+								accessToken ? navigate("/account") : setIsAuthOpen(true)
+							}
+						>
+							<User className="h-5 w-5" />
+						</Button>
 
-          {/* Right icons */}
-          <div className="flex items-center gap-2">
-            <Button 
-                variant="ghost" 
-                size="icon" 
-                className="lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
-                onClick={() => setIsSearchOpen(true)}
-            >
-              <Search className="h-5 w-5" />
-            </Button>
-            <Button 
-                variant="ghost" 
-                size="icon" 
-                className="hidden lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
-                onClick={() => setIsFavoritesOpen(true)}
-            >
-              <Heart className="h-5 w-5" />
-              {totalFavorites > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
-                  {totalFavorites}
-                </Badge>
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
-              onClick={onCartOpen}
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {totalItems > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
-                  {totalItems}
-                </Badge>
-              )}
-            </Button>
-            <Button 
-                variant="ghost" 
-                size="icon" 
-                className={`h-10 w-10 min-w-10 rounded-full transition-colors ${accessToken ? "bg-foreground text-background hover:bg-foreground/90" : "bg-secondary hover:bg-secondary/80 text-foreground"}`}
-                onClick={() => accessToken ? navigate('/account') : setIsAuthOpen(true)}
-            >
-              <User className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </div>
+						{/* Mobile menu toggle (Moved to Right) */}
+						<Button
+							variant="ghost"
+							size="icon"
+							className="lg:hidden text-foreground ml-1 h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 relative"
+							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						>
+							{isMobileMenuOpen ? (
+								<X className="h-5 w-5" />
+							) : (
+								<Menu className="h-5 w-5" />
+							)}
+						</Button>
+					</div>
+				</div>
+			</div>
 
-      <FavoritesDrawer open={isFavoritesOpen} onOpenChange={setIsFavoritesOpen} />
-      <AuthDialog open={isAuthOpen} onOpenChange={setIsAuthOpen} />
-      <SearchDialog open={isSearchOpen} onOpenChange={setIsSearchOpen} />
+			<FavoritesDrawer
+				open={isFavoritesOpen}
+				onOpenChange={setIsFavoritesOpen}
+			/>
+			<AuthDialog open={isAuthOpen} onOpenChange={setIsAuthOpen} />
+			<SearchDialog open={isSearchOpen} onOpenChange={setIsSearchOpen} />
 
-      {/* Mobile menu */}
-      <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? "max-h-96 border-b border-border" : "max-h-0"
-        }`}
-      >
-        <nav className="container mx-auto px-6 pb-6 flex flex-col gap-3 bg-background">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`text-sm font-medium transition-colors py-2 ${
-                location.pathname === link.to ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link to="/track-order" className="text-sm font-medium text-muted-foreground py-2">
-            Track Order
-          </Link>
-        </nav>
-      </div>
-    </header>
-  );
+			{/* Mobile menu */}
+			<div
+				className={`lg:hidden transition-all duration-300 overflow-hidden ${
+					isMobileMenuOpen ? "max-h-[500px] border-b border-border" : "max-h-0"
+				}`}
+			>
+				<nav className="container mx-auto px-6 pb-6 pt-2 flex flex-col gap-2 bg-background">
+					{navLinks.map((link) => (
+						<Link
+							key={link.to}
+							to={link.to}
+							onClick={() => setIsMobileMenuOpen(false)}
+							className={`text-base font-medium transition-colors py-3 border-b border-border/40 ${
+								location.pathname === link.to
+									? "text-foreground"
+									: "text-muted-foreground"
+							}`}
+						>
+							{link.label}
+						</Link>
+					))}
+					<Link
+						to="/track-order"
+						onClick={() => setIsMobileMenuOpen(false)}
+						className="text-base font-medium text-muted-foreground py-3 border-b border-border/40"
+					>
+						Track Order
+					</Link>
+
+					{/* Mobile Secondary Actions (Search, Favorites, Account) */}
+					<div className="flex flex-col gap-1 pt-2 mt-2">
+						<button
+							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							onClick={() => {
+								setIsSearchOpen(true);
+								setIsMobileMenuOpen(false);
+							}}
+						>
+							<Search className="h-5 w-5" /> Search Products
+						</button>
+						<button
+							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							onClick={() => {
+								setIsFavoritesOpen(true);
+								setIsMobileMenuOpen(false);
+							}}
+						>
+							<Heart className="h-5 w-5" /> Saved Favorites{" "}
+							{totalFavorites > 0 && (
+								<span className="text-xs bg-foreground text-background px-2 py-0.5 rounded-full">
+									{totalFavorites}
+								</span>
+							)}
+						</button>
+						<button
+							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							onClick={() => {
+								accessToken ? navigate("/account") : setIsAuthOpen(true);
+								setIsMobileMenuOpen(false);
+							}}
+						>
+							<User className="h-5 w-5" />{" "}
+							{accessToken ? "My Account" : "Sign In"}
+						</button>
+					</div>
+				</nav>
+			</div>
+		</header>
+	);
 };

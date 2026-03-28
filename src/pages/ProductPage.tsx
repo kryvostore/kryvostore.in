@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ShoppingCart, Loader2, Minus, Plus, Shield, Truck, RotateCcw, ShieldCheck, Headset, Star, ArrowUpRight, CreditCard, Heart } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const COLOR_MAP: Record<string, string> = {
   White: "#f8f9fa",
@@ -91,6 +92,15 @@ const ProductPage = () => {
 
   return (
     <div className="min-h-screen pt-[120px] pb-32 bg-background">
+      <SEO 
+        title={product.title}
+        description={product.description || `Buy ${product.title} at KRYVO. Premium quality goods curated for modern living.`}
+        image={images[0]?.node?.url}
+        type="product"
+        price={selectedVariant?.price?.amount}
+        currency={selectedVariant?.price?.currencyCode}
+        url={`https://kryvo.store/product/${handle}`}
+      />
       <div className="container mx-auto px-6 lg:px-8 max-w-6xl">
         
         {/* TOP SECTION: Gallery & Info */}

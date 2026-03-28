@@ -11,6 +11,7 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { WhatsAppSupport } from "@/components/WhatsAppSupport";
+import { SEO } from "@/components/SEO";
 
 const faqs = [
 	{
@@ -60,6 +61,11 @@ const Contact = () => {
 
 	return (
 		<div className="min-h-screen bg-background pt-48 pb-32">
+			<SEO
+				title="Contact Us"
+				description="Get in touch with the KRYVO team. We're here to help with orders, returns, product questions, and anything else. Reach us via email or WhatsApp."
+				url="https://kryvo.store/contact"
+			/>
 			<div className="container mx-auto px-6 lg:px-8 max-w-6xl">
 				{/* Massive Hero Typography */}
 				<div className="text-center mb-24">

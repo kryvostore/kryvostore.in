@@ -3,6 +3,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { useProducts } from "@/hooks/useProducts";
 import { Loader2, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { SEO } from "@/components/SEO";
+import { motion } from "framer-motion";
 
 // Using localized 3D transparent product assets
 const headphonesImg =
@@ -10,6 +12,7 @@ const headphonesImg =
 const displaysImg = "/generated/product_display_transparent_1774676483014.png";
 const watchImg = "/generated/product_watch_transparent_1774676450623.png";
 const phonesImg = "/generated/product_phones_transparent_1774676501120.png";
+
 
 const CATEGORIES = ["All Product", "Headphones", "Displays", "Watch", "Phones"];
 
@@ -44,36 +47,55 @@ const Collections = () => {
 
 	return (
 		<div className="min-h-screen bg-background">
+			<SEO 
+				title="Shop All Products" 
+				description="Browse our wide selection of premium electronics, headphones, displays, watches, and phones thoughtfully crafted to meet your needs."
+			/>
 			{/* 3D Scattered Dark Gray Hero Section */}
 			<div className="w-full bg-[#c9c9c9] relative pt-[140px] pb-20 lg:pb-24 overflow-hidden min-h-screen flex items-end">
 				{/* Floating Background 3D Objects */}
 				<div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
 					{/* Main Left Headphones */}
-					<img
+					<motion.img
+						animate={{ y: [0, -20, 0], rotate: [-15, -12, -15] }}
+						transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
 						src={headphonesImg}
 						alt="Hero Headphones"
-						className="absolute -left-16 lg:left-[5%] top-[10%] w-[380px] lg:w-[480px] object-contain -rotate-[15deg] drop-shadow-2xl"
+						className="absolute -left-16 lg:left-[5%] top-[10%] w-[380px] lg:w-[480px] object-contain drop-shadow-2xl"
 					/>
+
 					{/* Small Top Right Phones/Earbuds proxy */}
-					<img
+					<motion.img
+						animate={{ y: [0, 15, 0], rotate: [12, 16, 12] }}
+						transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1 }}
 						src={phonesImg}
 						alt="Floating Phones"
-						className="absolute right-[20%] lg:right-[15%] top-[5%] w-[180px] object-contain rotate-12 opacity-80 mix-blend-multiply drop-shadow-xl"
+						className="absolute right-[20%] lg:right-[15%] top-[5%] w-[180px] object-contain opacity-80 mix-blend-multiply drop-shadow-xl"
 					/>
+
 					{/* Watch proxy for the floating middle object */}
-					<img
+					<motion.img
+						animate={{ y: [0, -10, 0], x: [0, 10, 0], rotate: [35, 40, 35] }}
+						transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
 						src={watchImg}
 						alt="Floating Watch"
-						className="absolute left-[40%] top-[25%] w-[120px] drop-shadow-lg object-contain rotate-[35deg] opacity-70 mix-blend-multiply"
+						className="absolute left-[40%] top-[25%] w-[120px] drop-shadow-lg object-contain opacity-70 mix-blend-multiply"
 					/>
+
+
 					{/* Bottom Right Massive Headphone Cropped */}
-					<img
+					<motion.img
+						animate={{ y: [0, -25, 0], rotate: [10, 8, 10] }}
+						transition={{ repeat: Infinity, duration: 9, ease: "easeInOut", delay: 2.5 }}
 						src={headphonesImg}
 						alt="Hero Headphones Cropped"
-						className="absolute right-[-15%] lg:right-[0%] -bottom-[10%] w-[450px] lg:w-[650px] object-contain rotate-[10deg] drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)] mix-blend-multiply opacity-90 scale-x-[-1]"
+						className="absolute right-[-15%] lg:right-[0%] -bottom-[10%] w-[450px] lg:w-[650px] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)] mix-blend-multiply opacity-90 scale-x-[-1]"
 					/>
-					{/* Small earbuds at the bottom center */}
-					<img
+
+					{/* Small display layer at the bottom center */}
+					<motion.img
+						animate={{ y: [0, 10, 0], rotate: [-5, 0, -5], x: [0, -5, 0] }}
+						transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 4 }}
 						src={displaysImg}
 						alt="Bottom Displays"
 						className="absolute left-[38%] bottom-[5%] w-[200px] object-contain opacity-60 mix-blend-multiply drop-shadow-xl"
