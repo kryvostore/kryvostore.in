@@ -13,7 +13,7 @@ interface SEOProps {
 export const SEO = ({
   title,
   description,
-  image = "https://kryvo.store/og-banner.png",
+  image = "https://kryvo.store/logo.png",
   url = "https://kryvo.store",
   type = "website",
   price,
@@ -83,7 +83,7 @@ export const SEO = ({
                 "@type": "Organization",
                 name: "KRYVO",
                 url: url,
-                logo: "https://kryvo.store/og-banner.png",
+                logo: "https://kryvo.store/logo.png",
                 description: "Premium tech accessories and lifestyle products.",
               }
         )}
