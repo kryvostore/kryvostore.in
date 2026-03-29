@@ -6,6 +6,7 @@ import { Suspense, useEffect } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
+import { SEPARATE_PACKAGES_NOTE } from "@/lib/cart-order-summary";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -29,6 +30,14 @@ function SuccessContent() {
       <p className="text-muted-foreground max-w-md mb-2">
         Your payment was processed on Shopify checkout. Confirmation details are
         sent to your email.
+      </p>
+      <p className="text-sm text-muted-foreground max-w-md mb-2">
+        Shipping: <span className="font-medium text-emerald-600 dark:text-emerald-400">FREE</span>
+        {" — "}your order total is for items only; no separate shipping charge was
+        added.
+      </p>
+      <p className="text-xs text-muted-foreground/90 max-w-md mb-2 leading-relaxed">
+        {SEPARATE_PACKAGES_NOTE}
       </p>
       {checkoutId ? (
         <p className="text-xs text-muted-foreground/80 mb-8 font-mono">

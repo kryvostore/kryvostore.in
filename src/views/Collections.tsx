@@ -7,14 +7,7 @@ import { CollectionsGridSkeleton } from "@/components/skeletons/CollectionsPageS
 import { useProducts } from "@/hooks/useProducts";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion";
-
-// Using localized 3D transparent product assets
-const headphonesImg =
-  "/generated/product_headphones_transparent_1774676465954.png";
-const displaysImg = "/generated/product_display_transparent_1774676483014.png";
-const watchImg = "/generated/product_watch_transparent_1774676450623.png";
-const phonesImg = "/generated/product_phones_transparent_1774676501120.png";
+import { CollectionsHeroArt } from "@/components/CollectionsHeroArt";
 
 const CATEGORIES = ["All Product", "Headphones", "Displays", "Watch", "Phones"];
 
@@ -55,86 +48,23 @@ const Collections = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* 3D Scattered Dark Gray Hero Section */}
-      <div className="w-full bg-[#c9c9c9] relative pt-[140px] pb-20 lg:pb-24 overflow-hidden min-h-screen flex items-end">
-        {/* Floating Background 3D Objects */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-          {/* Main Left Headphones */}
-          <motion.img
-            animate={{ y: [0, -20, 0], rotate: [-15, -12, -15] }}
-            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            src={headphonesImg}
-            alt="Hero Headphones"
-            className="absolute -left-16 lg:left-[5%] top-[10%] w-[380px] lg:w-[480px] object-contain drop-shadow-2xl"
-          />
+      {/* Catalog hero — compact height, neutral commerce gradient (common store pattern) */}
+      <div className="w-full relative pt-[120px] pb-14 sm:pb-16 lg:pb-20 overflow-hidden min-h-[min(52vh,440px)] sm:min-h-[min(48vh,400px)] flex items-end bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_20%_30%,rgba(59,130,246,0.18),transparent_60%),radial-gradient(ellipse_60%_50%_at_90%_60%,rgba(255,255,255,0.06),transparent_55%)] pointer-events-none"
+          aria-hidden
+        />
+        <CollectionsHeroArt />
 
-          {/* Small Top Right Phones/Earbuds proxy */}
-          <motion.img
-            animate={{ y: [0, 15, 0], rotate: [12, 16, 12] }}
-            transition={{
-              repeat: Infinity,
-              duration: 5.5,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            src={phonesImg}
-            alt="Floating Phones"
-            className="absolute right-[20%] lg:right-[15%] top-[5%] w-[180px] object-contain opacity-80 mix-blend-multiply drop-shadow-xl"
-          />
-
-          {/* Watch proxy for the floating middle object */}
-          <motion.img
-            animate={{ y: [0, -10, 0], x: [0, 10, 0], rotate: [35, 40, 35] }}
-            transition={{
-              repeat: Infinity,
-              duration: 7,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-            src={watchImg}
-            alt="Floating Watch"
-            className="absolute left-[40%] top-[25%] w-[120px] drop-shadow-lg object-contain opacity-70 mix-blend-multiply"
-          />
-
-          {/* Bottom Right Massive Headphone Cropped */}
-          <motion.img
-            animate={{ y: [0, -25, 0], rotate: [10, 8, 10] }}
-            transition={{
-              repeat: Infinity,
-              duration: 9,
-              ease: "easeInOut",
-              delay: 2.5,
-            }}
-            src={headphonesImg}
-            alt="Hero Headphones Cropped"
-            className="absolute right-[-15%] lg:right-[0%] -bottom-[10%] w-[450px] lg:w-[650px] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)] mix-blend-multiply opacity-90 scale-x-[-1]"
-          />
-
-          {/* Small display layer at the bottom center */}
-          <motion.img
-            animate={{ y: [0, 10, 0], rotate: [-5, 0, -5], x: [0, -5, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 5,
-              ease: "easeInOut",
-              delay: 4,
-            }}
-            src={displaysImg}
-            alt="Bottom Displays"
-            className="absolute left-[38%] bottom-[5%] w-[200px] object-contain opacity-60 mix-blend-multiply drop-shadow-xl"
-          />
-        </div>
-
-        {/* Background Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90 pointer-events-none" />
 
         {/* Hero Content */}
         <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10 w-full mb-8">
           <div className="max-w-lg">
-            <h1 className="text-white text-5xl lg:text-6xl font-display font-medium leading-[1] mb-4 tracking-tight">
+            <h1 className="text-white text-5xl lg:text-6xl font-display font-medium leading-[1] mb-4 tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
               Shop
             </h1>
-            <p className="text-white/85 text-[15px] leading-normal max-w-[390px] font-light">
+            <p className="text-white/90 text-[15px] leading-normal max-w-[390px] font-light drop-shadow-[0_1px_12px_rgba(0,0,0,0.35)]">
               Browse our wide selection of products, thoughtfully crafted to
               meet your needs with quality and convenience in mind.
             </p>

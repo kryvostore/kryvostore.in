@@ -66,9 +66,9 @@ const About = () => {
 							engineering innovation and everyday contemporary consumer goods.
 						</p>
 						<p>
-							Today, we serve a global, discerning customer base, carefully
-							curating electronic architecture that are not just gadgets — they
-							are meticulously crafted tools for a better, smarter life.
+							Today, we serve customers across India, carefully curating
+							electronic architecture that are not just gadgets — they are
+							meticulously crafted tools for a better, smarter life.
 						</p>
 					</div>
 				</div>

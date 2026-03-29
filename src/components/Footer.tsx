@@ -268,24 +268,36 @@ export const Footer = () => {
 					<p className="text-[13px] text-muted-foreground/80 font-light">
 						© {new Date().getFullYear()} KRYVO. All rights reserved.
 					</p>
-					<div className="flex gap-6">
+					<div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
 						<Link
 							href="/terms"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
-							Terms & Conditions
+							Terms of service
 						</Link>
 						<Link
 							href="/privacy"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
-							Privacy Policy
+							Privacy policy
 						</Link>
 						<Link
 							href="/refund"
 							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
 						>
-							Returns & refunds
+							Return & refund policy
+						</Link>
+						<Link
+							href="/shipping"
+							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+						>
+							Shipping policy
+						</Link>
+						<Link
+							href="/contact-information"
+							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+						>
+							Contact information
 						</Link>
 					</div>
 				</div>

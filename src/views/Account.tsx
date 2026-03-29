@@ -276,6 +276,9 @@ const Account = () => {
 														{order.totalPrice.currencyCode}{" "}
 														{parseFloat(order.totalPrice.amount).toFixed(2)}
 													</p>
+													<p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium mt-1">
+														Shipping: FREE
+													</p>
 												</div>
 
 												<span

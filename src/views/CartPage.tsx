@@ -14,6 +14,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { CartOrderSummary } from "@/components/CartOrderSummary";
 
 export default function CartPage() {
   const {
@@ -31,10 +32,6 @@ export default function CartPage() {
   }, [syncCart]);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce(
-    (sum, item) => sum + parseFloat(item.price.amount) * item.quantity,
-    0,
-  );
 
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
@@ -145,16 +142,10 @@ export default function CartPage() {
             </div>
 
             <div className="rounded-3xl border border-border/50 p-6 bg-card/50">
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-lg font-display font-semibold">Total</span>
-                <span className="text-2xl font-bold">
-                  {items[0]?.price.currencyCode || "$"}{" "}
-                  {totalPrice.toFixed(2)}
-                </span>
-              </div>
+              <CartOrderSummary items={items} variant="default" />
               <Button
                 onClick={handleCheckout}
-                className="w-full rounded-full h-12"
+                className="w-full rounded-full h-12 mt-6"
                 size="lg"
                 disabled={isLoading || isSyncing}
               >
@@ -163,7 +154,7 @@ export default function CartPage() {
                 ) : (
                   <>
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Checkout on shop.kryvo.store
+                    Checkout
                   </>
                 )}
               </Button>

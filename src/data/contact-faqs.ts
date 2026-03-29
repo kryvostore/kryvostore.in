@@ -2,11 +2,11 @@
 export const contactFaqs: { q: string; a: string }[] = [
   {
     q: "How long does shipping take?",
-    a: "Standard shipping takes 5–10 business days. Express shipping is available at checkout for faster delivery.",
+    a: "Delivery usually takes 5–10 business days depending on your location. You will see estimated timelines in your order confirmation.",
   },
   {
     q: "Do you offer free shipping?",
-    a: "Yes! We offer free shipping on all orders over $50. International shipping rates vary by location.",
+    a: "Yes. Shipping is free on all orders — your total at checkout is your items only, with no separate shipping charge.",
   },
   {
     q: "What is your return policy?",
@@ -25,7 +25,7 @@ export const contactFaqs: { q: string; a: string }[] = [
     a: "Orders can be modified or cancelled within 2 hours of placement. Contact our support team immediately for assistance.",
   },
   {
-    q: "Do you ship internationally?",
-    a: "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by destination.",
+    q: "Do you ship outside India?",
+    a: "Not at this time — we ship within India only. Delivery times depend on your location; we do not add a separate shipping fee at checkout.",
   },
 ];

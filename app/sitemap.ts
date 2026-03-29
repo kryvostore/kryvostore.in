@@ -50,6 +50,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.35,
     },
+    {
+      url: `${base}/shipping`,
+      lastModified: lastMod,
+      changeFrequency: "yearly",
+      priority: 0.35,
+    },
+    {
+      url: `${base}/contact-information`,
+      lastModified: lastMod,
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
   ];
 
   const products = await fetchProductHandlesForSitemap();

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { CartOrderSummary } from "@/components/CartOrderSummary";
 
 interface CartDrawerProps {
   open: boolean;
@@ -15,7 +16,6 @@ interface CartDrawerProps {
 export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
 
   useEffect(() => { if (open) syncCart(); }, [open, syncCart]);
 
@@ -86,10 +86,7 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
                 >
                   View full cart
                 </Link>
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-display font-semibold">Total</span>
-                  <span className="text-xl font-bold text-primary">{items[0]?.price.currencyCode || '$'} {totalPrice.toFixed(2)}</span>
-                </div>
+                <CartOrderSummary items={items} variant="compact" />
                 <Button onClick={handleCheckout} className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
                   {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Checkout</>}
                 </Button>

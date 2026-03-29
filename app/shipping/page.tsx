@@ -1,34 +1,34 @@
 import type { Metadata } from "next";
-import Terms from "@/views/Terms";
+import ShippingPolicy from "@/views/ShippingPolicy";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { webPageSchema } from "@/lib/seo/schema";
 import { getSiteUrl } from "@/lib/site";
 import { DEFAULT_KEYWORDS } from "@/lib/seo/config";
 
-const path = "/terms";
+const path = "/shipping";
 const canonical = `${getSiteUrl()}${path}`;
 const desc =
-  "Terms and conditions for shopping at KRYVO: orders, shipping, liability, and use of kryvo.store.";
+  "KRYVO shipping policy: free standard shipping within India, delivery estimates, and multiple packages.";
 
 export const metadata: Metadata = {
-  title: "Terms of Service",
+  title: "Shipping Policy",
   description: desc,
-  keywords: [...DEFAULT_KEYWORDS, "terms of service", "legal"],
+  keywords: [...DEFAULT_KEYWORDS, "shipping policy", "delivery", "free shipping"],
   alternates: { canonical },
-  openGraph: { title: "Terms of Service — KRYVO", description: desc, url: canonical },
+  openGraph: { title: "Shipping Policy — KRYVO", description: desc, url: canonical },
 };
 
-export default function TermsPage() {
+export default function ShippingPolicyPage() {
   return (
     <>
       <JsonLd
         data={webPageSchema({
-          name: "Terms of Service — KRYVO",
+          name: "Shipping Policy — KRYVO",
           description: desc,
           path,
         })}
       />
-      <Terms />
+      <ShippingPolicy />
     </>
   );
 }

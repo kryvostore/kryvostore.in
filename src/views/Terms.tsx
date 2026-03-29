@@ -1,13 +1,13 @@
+const LAST_UPDATED = "March 29, 2026";
+
 const Terms = () => {
 	return (
 		<div className="pt-32 pb-24 bg-background min-h-screen">
 			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
-				<h1 className="font-display text-4xl lg:text-5xl font-bold tracking-tight mb-8">
-					Terms & Conditions
+				<h1 className="font-display text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+					Terms of Service
 				</h1>
-				<p className="text-muted-foreground mb-12">
-					Effective Date: {new Date().toLocaleDateString()}
-				</p>
+				<p className="text-muted-foreground mb-12">Last updated: {LAST_UPDATED}</p>
 
 				<div className="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-muted-foreground/90 leading-relaxed">
 					<section>
@@ -76,10 +76,15 @@ const Terms = () => {
 							5. Delivery and Returns
 						</h2>
 						<p>
-							For information regarding delivery times, shipping costs, and our
-							return policy, please refer to the specific documentation provided
-							during checkout or contact our support team. We reserve the right
-							to refuse any order placed through the Site.
+							For delivery and shipping, see our{" "}
+							<a href="/shipping" className="text-primary hover:underline font-medium">
+								Shipping Policy
+							</a>
+							. For returns and refunds, see our{" "}
+							<a href="/refund" className="text-primary hover:underline font-medium">
+								Return and refund policy
+							</a>
+							. We reserve the right to refuse any order placed through the Site.
 						</p>
 					</section>
 
@@ -90,13 +95,19 @@ const Terms = () => {
 						<p>
 							In order to resolve a complaint regarding the Site or to receive
 							further information regarding use of the Site, please contact us
-							at:
+							using the details on our{" "}
+							<a
+								href="/contact-information"
+								className="text-primary hover:underline font-medium"
+							>
+								Contact information
+							</a>{" "}
+							page or the{" "}
+							<a href="/contact" className="text-primary hover:underline font-medium">
+								Contact &amp; FAQ
+							</a>{" "}
+							page.
 						</p>
-						<ul className="list-none space-y-2 mt-4 font-medium text-foreground">
-							<li>Email: kryvostore.in@gmail.com</li>
-							<li>Phone: +91 90610 61442 / +91 96056 55712</li>
-							<li>Address: Kuttikkatoor, Kozhikode, Kerala</li>
-						</ul>
 					</section>
 				</div>
 			</div>
