@@ -9,11 +9,11 @@ export function getSiteUrl(): string {
 }
 
 /**
- * Checkout host (shop.kryvo.store). Used to normalize Shopify checkout URLs from the Cart API.
+ * Checkout host derived from Shopify store domain.
+ * Keeps checkout aligned with the active Storefront store.
  */
 export function getCheckoutOrigin(): string {
-  return (
-    process.env.NEXT_PUBLIC_SHOPIFY_CHECKOUT_ORIGIN?.replace(/\/$/, "") ??
-    "https://shop.kryvo.store"
-  );
+  const raw = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN?.trim();
+  const host = raw?.replace(/^https?:\/\//, "").split("/")[0]?.trim();
+  return `https://${host || "kryvostore.myshopify.com"}`;
 }

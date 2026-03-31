@@ -41,7 +41,7 @@ function isBrowser(): boolean {
   return typeof window !== "undefined";
 }
 
-/** Rewrites Cart API checkout URL to your checkout domain (e.g. shop.kryvo.store). */
+/** Rewrites Cart API checkout URL to the configured Shopify store domain. */
 export function normalizeCheckoutUrl(checkoutUrl: string): string {
   try {
     const url = new URL(checkoutUrl);
@@ -631,6 +631,8 @@ export const GET_CUSTOMER_QUERY = `
             id
             orderNumber
             processedAt
+            canceledAt
+            cancelReason
             financialStatus
             fulfillmentStatus
             statusUrl
@@ -644,6 +646,132 @@ export const GET_CUSTOMER_QUERY = `
     }
   }
 `;
+
+export const CUSTOMER_RECOVER_MUTATION = `
+  mutation customerRecover($email: String!) {
+    customerRecover(email: $email) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_RESET_MUTATION = `
+  mutation customerReset($id: ID!, $input: CustomerResetInput!) {
+    customerReset(id: $id, input: $input) {
+      customer {
+        id
+        email
+      }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_RESET_BY_URL_MUTATION = `
+  mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
+    customerResetByUrl(resetUrl: $resetUrl, password: $password) {
+      customer {
+        id
+        email
+      }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+/** Sends Shopify’s password-recovery email (requires unauthenticated_write_customers). */
+export async function recoverCustomerPassword(email: string): Promise<void> {
+  const normalized = email.trim().toLowerCase();
+  if (!normalized) throw new Error("Email is required.");
+  const data = await storefrontApiRequest(CUSTOMER_RECOVER_MUTATION, {
+    email: normalized,
+  });
+  const errors = data?.data?.customerRecover?.customerUserErrors ?? [];
+  if (errors.length > 0) {
+    throw new Error(errors[0].message);
+  }
+}
+
+export type CustomerAuthToken = {
+  accessToken: string;
+  expiresAt: string;
+};
+
+/** Build Storefront Customer GID from numeric id or pass-through if already a GID. */
+export function toCustomerGid(id: string): string {
+  const t = id.trim();
+  if (t.startsWith("gid://")) return t;
+  if (!/^\d+$/.test(t)) return t;
+  return `gid://shopify/Customer/${t}`;
+}
+
+/** Reset password using id + token from the recovery email link path or query. */
+export async function resetCustomerPassword(
+  customerId: string,
+  resetToken: string,
+  password: string,
+): Promise<{ customerAccessToken: CustomerAuthToken }> {
+  const data = await storefrontApiRequest(CUSTOMER_RESET_MUTATION, {
+    id: toCustomerGid(customerId),
+    input: {
+      resetToken: resetToken.trim(),
+      password,
+    },
+  });
+  const payload = data?.data?.customerReset;
+  const errors = payload?.customerUserErrors ?? [];
+  if (errors.length > 0) {
+    throw new Error(errors[0].message);
+  }
+  const token = payload?.customerAccessToken;
+  if (!token?.accessToken || !token?.expiresAt) {
+    throw new Error("Could not complete password reset. Try requesting a new link.");
+  }
+  return { customerAccessToken: token };
+}
+
+/** Reset using the full URL from Shopify’s email (works when the link targets your storefront or myshopify.com). */
+export async function resetCustomerPasswordByUrl(
+  resetUrl: string,
+  password: string,
+): Promise<{ customerAccessToken: CustomerAuthToken }> {
+  const trimmed = resetUrl.trim();
+  if (!trimmed) throw new Error("Reset link is missing.");
+  const data = await storefrontApiRequest(CUSTOMER_RESET_BY_URL_MUTATION, {
+    resetUrl: trimmed,
+    password,
+  });
+  const payload = data?.data?.customerResetByUrl;
+  const errors = payload?.customerUserErrors ?? [];
+  if (errors.length > 0) {
+    throw new Error(errors[0].message);
+  }
+  const token = payload?.customerAccessToken;
+  if (!token?.accessToken || !token?.expiresAt) {
+    throw new Error("Could not complete password reset. Try requesting a new link.");
+  }
+  return { customerAccessToken: token };
+}
 
 export async function loginCustomer(email: string, password: string) {
   const data = await storefrontApiRequest(

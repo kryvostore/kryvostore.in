@@ -16,6 +16,7 @@ import {
 import { useAuthStore } from "@/stores/authStore";
 import { useQuery } from "@tanstack/react-query";
 import { getCustomerData } from "@/lib/shopify";
+import { getTrackingStepByFulfillment } from "@/lib/order-status";
 
 const steps = [
 	{
@@ -56,6 +57,9 @@ const TrackOrder = () => {
 		queryKey: ["customer", accessToken],
 		queryFn: () => getCustomerData(accessToken!),
 		enabled: !!accessToken,
+		refetchOnWindowFocus: true,
+		refetchOnReconnect: true,
+		refetchInterval: accessToken ? 60_000 : false,
 	});
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -98,21 +102,9 @@ const TrackOrder = () => {
 		}
 	}, [searched, accessToken, customerLoading, customer, orderNumber]);
 
-	const getCurrentStepIndex = (status: string) => {
-		switch (status) {
-			case "FULFILLED":
-				return 3;
-			case "PARTIALLY_FULFILLED":
-				return 2;
-			case "UNFULFILLED":
-			default:
-				return 1;
-		}
-	};
-
 	const activeStep =
 		result?.kind === "found"
-			? getCurrentStepIndex(result.fulfillmentStatus)
+			? getTrackingStepByFulfillment(result.fulfillmentStatus)
 			: 0;
 
 	const lookupBlocked = !!accessToken && customerLoading && searched;

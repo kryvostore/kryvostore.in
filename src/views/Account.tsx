@@ -15,8 +15,10 @@ import {
 	LogOut,
 	ExternalLink,
 	Pencil,
+	RefreshCw,
 } from "lucide-react";
 import { EditProfileDialog } from "@/components/EditProfileDialog";
+import { getOrderStatusView } from "@/lib/order-status";
 
 /** Matches Storefront `customer { orders { edges { node { ... } } } }` */
 type CustomerOrderEdge = {
@@ -24,6 +26,8 @@ type CustomerOrderEdge = {
 		id: string;
 		orderNumber: number;
 		processedAt: string;
+		canceledAt: string | null;
+		cancelReason: string | null;
 		fulfillmentStatus: string | null;
 		financialStatus: string | null;
 		/** Shopify-hosted order status page; opens in a new tab from account. */
@@ -37,10 +41,19 @@ const Account = () => {
 	const router = useRouter();
 	const [editProfileOpen, setEditProfileOpen] = useState(false);
 
-	const { data: customer, isLoading, isError } = useQuery({
+	const {
+		data: customer,
+		isLoading,
+		isError,
+		refetch,
+		isRefetching,
+	} = useQuery({
 		queryKey: ["customer", accessToken],
 		queryFn: () => getCustomerData(accessToken!),
 		enabled: !!accessToken,
+		refetchOnWindowFocus: true,
+		refetchOnReconnect: true,
+		refetchInterval: accessToken ? 60_000 : false,
 	});
 
 	useEffect(() => {
@@ -199,12 +212,27 @@ const Account = () => {
 							<h2 className="font-display text-2xl font-normal flex items-center gap-3 tracking-tight">
 								<Package className="w-6 h-6 text-foreground/70" /> Order History
 							</h2>
-							<Link
-								href="/track-order"
-								className="text-[14px] text-muted-foreground hover:text-foreground underline-offset-4 hover:underline shrink-0"
-							>
-								Track a guest order
-							</Link>
+							<div className="flex items-center gap-3">
+								<Button
+									type="button"
+									variant="outline"
+									size="sm"
+									className="rounded-full h-9 px-4 text-[13px] border-border/60 bg-background/80 hover:bg-background"
+									onClick={() => refetch()}
+									disabled={isRefetching}
+								>
+									<RefreshCw
+										className={`h-3.5 w-3.5 mr-2 ${isRefetching ? "animate-spin" : ""}`}
+									/>
+									Refresh
+								</Button>
+								<Link
+									href="/track-order"
+									className="text-[14px] text-muted-foreground hover:text-foreground underline-offset-4 hover:underline shrink-0"
+								>
+									Track a guest order
+								</Link>
+							</div>
 						</div>
 
 						{!customer.orders?.edges || customer.orders.edges.length === 0 ? (
@@ -230,10 +258,22 @@ const Account = () => {
 							<div className="space-y-4">
 								{customer.orders.edges.map((edge: CustomerOrderEdge) => {
 									const order = edge.node;
+									const status = getOrderStatusView(
+										order.fulfillmentStatus,
+										order.financialStatus,
+										order.canceledAt,
+									);
 									const date = new Date(order.processedAt).toLocaleDateString(
 										"en-US",
 										{ year: "numeric", month: "long", day: "numeric" },
 									);
+									const canceledDate = order.canceledAt
+										? new Date(order.canceledAt).toLocaleDateString("en-US", {
+												year: "numeric",
+												month: "long",
+												day: "numeric",
+											})
+										: null;
 
 									const statusHref = order.statusUrl?.trim();
 									return (
@@ -251,20 +291,23 @@ const Account = () => {
 														Order #{order.orderNumber}
 													</h4>
 													<span
-														className={`text-[10px] px-3 py-1 rounded-full font-semibold uppercase tracking-wider ${
-															order.fulfillmentStatus === "FULFILLED"
-																? "bg-green-100 text-green-700"
-																: order.fulfillmentStatus === "UNFULFILLED"
-																	? "bg-secondary text-muted-foreground"
-																	: "bg-yellow-100 text-yellow-700"
-														}`}
+														className={`text-[10px] px-3 py-1 rounded-full font-semibold uppercase tracking-wider ${status.className}`}
 													>
-														{order.fulfillmentStatus || "Processing"}
+														{status.label}
 													</span>
 												</div>
 												<p className="text-[14px] text-muted-foreground font-light">
 													{date}
 												</p>
+												{order.canceledAt && (
+													<p className="text-[12px] text-red-600 dark:text-red-400 mt-1">
+														Canceled
+														{canceledDate ? ` on ${canceledDate}` : ""}
+														{order.cancelReason
+															? ` (${order.cancelReason.replace(/_/g, " ").toLowerCase()})`
+															: ""}
+													</p>
+												)}
 											</div>
 
 											<div className="flex items-center gap-6 sm:text-right">
