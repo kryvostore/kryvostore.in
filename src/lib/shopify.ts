@@ -502,9 +502,8 @@ export async function addLineToShopifyCart(
 
   const lines = data?.data?.cartLinesAdd?.cart?.lines?.edges || [];
   const newLine = lines.find(
-    (l: {
-      node: { id: string; merchandise: { id: string } };
-    }) => l.node.merchandise.id === item.variantId,
+    (l: { node: { id: string; merchandise: { id: string } } }) =>
+      l.node.merchandise.id === item.variantId,
   );
   return { success: true, lineId: newLine?.node?.id };
 }
@@ -671,41 +670,6 @@ export const GET_CUSTOMER_QUERY = `
               amount
               currencyCode
             }
-            lineItems(first: 50) {
-              edges {
-                node {
-                  id
-                  title
-                  quantity
-                  currentQuantity
-                  variant {
-                    title
-                    image {
-                      url
-                      altText
-                    }
-                  }
-                }
-              }
-            }
-            successfulFulfillments(first: 10) {
-              trackingCompany
-              trackingInfo(first: 10) {
-                number
-                url
-              }
-              fulfillmentLineItems(first: 50) {
-                edges {
-                  node {
-                    quantity
-                    lineItem {
-                      id
-                      title
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -811,7 +775,9 @@ export async function resetCustomerPassword(
   }
   const token = payload?.customerAccessToken;
   if (!token?.accessToken || !token?.expiresAt) {
-    throw new Error("Could not complete password reset. Try requesting a new link.");
+    throw new Error(
+      "Could not complete password reset. Try requesting a new link.",
+    );
   }
   return { customerAccessToken: token };
 }
@@ -834,7 +800,9 @@ export async function resetCustomerPasswordByUrl(
   }
   const token = payload?.customerAccessToken;
   if (!token?.accessToken || !token?.expiresAt) {
-    throw new Error("Could not complete password reset. Try requesting a new link.");
+    throw new Error(
+      "Could not complete password reset. Try requesting a new link.",
+    );
   }
   return { customerAccessToken: token };
 }
@@ -904,12 +872,10 @@ export async function fetchProductHandlesForSitemap(): Promise<
       first: 250,
     });
     const edges = data?.data?.products?.edges ?? [];
-    return edges.map(
-      (e: { node: { handle: string; updatedAt: string } }) => ({
-        handle: e.node.handle,
-        updatedAt: e.node.updatedAt,
-      }),
-    );
+    return edges.map((e: { node: { handle: string; updatedAt: string } }) => ({
+      handle: e.node.handle,
+      updatedAt: e.node.updatedAt,
+    }));
   } catch {
     return [];
   }
