@@ -33,7 +33,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-surface pb-16">
       {/* Hero — full-bleed background image, copy only (no collection product imagery) */}
-      <section className="relative w-full min-h-screen flex flex-col justify-start overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-24">
+      <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-24">
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
             src={HERO_BACKGROUND_IMAGE}
