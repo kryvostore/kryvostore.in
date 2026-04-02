@@ -29,6 +29,14 @@ interface AuthDialogProps {
 
 type AuthView = "login" | "register" | "forgot";
 
+function isEmailVerificationPending(message: string): boolean {
+  const text = message.toLowerCase();
+  return (
+    text.includes("verify your email") ||
+    text.includes("we have sent an email")
+  );
+}
+
 function celebrateSignup() {
   const count = 160;
   const defaults = { origin: { y: 0.72 }, zIndex: 9999 };
@@ -103,6 +111,12 @@ export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
       window.setTimeout(() => goToAccount(), 420);
     },
     onError: (error: Error) => {
+      if (isEmailVerificationPending(error.message)) {
+        toast.success("Check your email", {
+          description: "We sent a verification link. Open it, then sign in.",
+        });
+        return;
+      }
       toast.error("Registration Failed", { description: error.message });
     },
   });

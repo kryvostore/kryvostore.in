@@ -10,15 +10,15 @@ import { CollectionsPageSkeleton } from "@/components/skeletons/CollectionsPageS
 const path = "/collections";
 const canonical = `${getSiteUrl()}${path}`;
 const desc =
-  "Browse premium electronics, headphones, displays, watches, and phones. Filter by category and shop KRYVO’s curated catalog.";
+  "Browse all kids learning toys with fast filters for stock, price, and toy type. Shop smart toys in a clean catalog layout.";
 
 export const metadata: Metadata = {
   title: "Shop All Products",
   description: desc,
-  keywords: [...DEFAULT_KEYWORDS, "catalog", "all products", "electronics shop"],
+  keywords: [...DEFAULT_KEYWORDS, "catalog", "learning toys", "kids toy shop"],
   alternates: { canonical },
   openGraph: {
-    title: "Shop — All products | KRYVO",
+    title: "Shop — All products",
     description: desc,
     url: canonical,
     images: getDefaultOpenGraphImages(),
@@ -30,7 +30,7 @@ export default function CollectionsPage() {
     <>
       <JsonLd
         data={webPageSchema({
-          name: "Shop all products — KRYVO",
+          name: "Shop all products",
           description: desc,
           path,
         })}

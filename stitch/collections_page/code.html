@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collections | The Editorial Merchant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#191c1d",
+              "on-primary-container": "#6c92ad",
+              "inverse-surface": "#2e3132",
+              "primary-fixed-dim": "#a4cbe8",
+              "tertiary": "#230b00",
+              "surface": "#f8f9fa",
+              "on-background": "#191c1d",
+              "tertiary-fixed-dim": "#f0bb9e",
+              "surface-tint": "#3c637c",
+              "tertiary-fixed": "#ffdbc8",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#111d22",
+              "surface-container-low": "#f3f4f5",
+              "outline": "#71787b",
+              "on-primary-fixed-variant": "#224b63",
+              "primary-fixed": "#c7e7ff",
+              "secondary": "#536066",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#2f1403",
+              "surface-dim": "#d9dadb",
+              "primary-container": "#002a3e",
+              "on-secondary-container": "#59666c",
+              "surface-variant": "#e1e3e4",
+              "surface-container-high": "#e7e8e9",
+              "surface-container-highest": "#e1e3e4",
+              "secondary-fixed-dim": "#bbc9cf",
+              "tertiary-container": "#3d1f0b",
+              "on-secondary-fixed-variant": "#3c494e",
+              "inverse-primary": "#a4cbe8",
+              "surface-bright": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#d7e5ec",
+              "on-tertiary-container": "#b28469",
+              "on-primary": "#ffffff",
+              "outline-variant": "#c1c7cb",
+              "on-secondary": "#ffffff",
+              "background": "#f8f9fa",
+              "inverse-on-surface": "#f0f1f2",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#623e28",
+              "surface-container": "#edeeef",
+              "secondary-container": "#d7e5ec",
+              "primary": "#001420",
+              "on-surface-variant": "#41484b",
+              "on-primary-fixed": "#001e2e",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-header {
+        background: rgba(248, 249, 250, 0.8);
+        backdrop-filter: blur(24px);
+      }
+      .custom-gradient-btn {
+        background: linear-gradient(135deg, #001420 0%, #002a3e 100%);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 glass-header">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-slate-950 dark:text-slate-50 font-headline">The Editorial Merchant</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-slate-950 dark:text-white font-semibold border-b-2 border-slate-950 dark:border-white pb-1 font-['Manrope'] tracking-tight" href="#">Collections</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-['Manrope'] tracking-tight" href="#">About</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-['Manrope'] tracking-tight" href="#">Track Order</a>
+</nav>
+<div class="flex items-center space-x-5">
+<button class="p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all rounded-full group">
+<span class="material-symbols-outlined text-on-surface" data-icon="favorite">favorite</span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all rounded-full group relative">
+<span class="material-symbols-outlined text-on-surface" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 max-w-7xl mx-auto px-6">
+<!-- Collection Header -->
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h1 class="text-5xl font-extrabold font-headline tracking-tighter text-primary mb-4 leading-none">Curated Essentials</h1>
+<p class="text-secondary leading-relaxed font-body">A meticulously selected range of seasonal pieces designed for the modern architectural wardrobe. Quality over quantity, always.</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Sort By</span>
+<div class="relative group">
+<button class="flex items-center gap-2 bg-surface-container-low px-4 py-2.5 rounded-lg text-sm font-semibold border-none focus:outline-none focus:ring-2 focus:ring-outline transition-all">
+                        Newest Arrivals
+                        <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-12">
+<!-- Sidebar Filters -->
+<aside class="w-full md:w-64 shrink-0 space-y-10">
+<!-- Category -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary mb-6">Category</h3>
+<ul class="space-y-4">
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">All Pieces</span>
+<span class="text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-secondary font-bold">124</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-sm font-medium text-primary">Outerwear</span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Knitwear</span>
+<span class="text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-secondary font-bold">32</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Accessories</span>
+<span class="text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-secondary font-bold">18</span>
+</li>
+</ul>
+</section>
+<!-- Color -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary mb-6">Palette</h3>
+<div class="flex flex-wrap gap-3">
+<button class="w-8 h-8 rounded-full bg-[#1a1a1a] ring-2 ring-offset-2 ring-primary transition-transform hover:scale-110"></button>
+<button class="w-8 h-8 rounded-full bg-[#f4f4f4] ring-1 ring-outline-variant transition-transform hover:scale-110"></button>
+<button class="w-8 h-8 rounded-full bg-[#5d5e50] transition-transform hover:scale-110"></button>
+<button class="w-8 h-8 rounded-full bg-[#e2d6c5] transition-transform hover:scale-110"></button>
+<button class="w-8 h-8 rounded-full bg-[#2c3e50] transition-transform hover:scale-110"></button>
+</div>
+</section>
+<!-- Size -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary mb-6">Sizing</h3>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 text-[10px] font-bold border border-outline-variant hover:border-primary transition-colors rounded">XS</button>
+<button class="py-2 text-[10px] font-bold bg-primary text-on-primary rounded">S</button>
+<button class="py-2 text-[10px] font-bold border border-outline-variant hover:border-primary transition-colors rounded">M</button>
+<button class="py-2 text-[10px] font-bold border border-outline-variant hover:border-primary transition-colors rounded">L</button>
+<button class="py-2 text-[10px] font-bold border border-outline-variant hover:border-primary transition-colors rounded">XL</button>
+</div>
+</section>
+<!-- Price Range -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary mb-6">Price Range</h3>
+<div class="space-y-4">
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between text-[11px] font-bold text-secondary">
+<span>$0</span>
+<span>$1200+</span>
+</div>
+</div>
+</section>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Modern Coat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="studio photograph of a minimal charcoal wool overcoat draped on a wooden hanger against a clean light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx2o_hIopEWpd3q-hcbdxGv4SoOW4heUuxW7HezKy-uOjNngGfOU3OPjGeZJUycdVA2svY7yG8o2R1DgE1Ch9NGTCxwAP54cVwCBplJhJTBnGdGpi70C-CWmVsgsa4gqYVhIYElYTdSBYOX2dEWjV7e2YbbEWOC5gAQv9mRjsk2FTRwBLjJ-G6jhgQ7CLikXoXaTzXbCgQVjtF-K8DOxhX8-J9-tmcJY5Ehbes7Qok5D3a6MlMcuUeh0A90YPI_RQAdcbIpWnher4"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded text-[10px] font-extrabold uppercase tracking-widest text-primary">Limited</span>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Architectural Wool Overcoat</h3>
+<span class="font-bold text-primary">$495.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Deep Charcoal</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Minimal Sneakers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="pair of clean white leather minimalist sneakers displayed on a textured stone block with soft geometric shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC33ctFoa0UgucDp2Qg1kavT0ji5f2CIw7-rg_goad_ghcFIHemSDM4LL61NG_WqvL4FNib2k-HqPC9OU9S44udIaxwHHvd-GKeGrKKboCbwpLdPOd3yIoLinYBboy20Fz97Ddcx8Lr87q5toCZGKVg_3lEGXU9MbaZcvqqzy1ZQMdAR61gaPyLN2cp49xb6VJ9auzQEEyqc2Sb-ZzugJW7Xj6xzanL6v8JvU8Fpv_0DKdn5uv1gxbNqALiAjKuTVN8GaM7uCvwlYo"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Series 01 Leather Sneaker</h3>
+<span class="font-bold text-primary">$210.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Optic White</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Knit Sweater" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="high quality close up of a beige cashmere mock-neck sweater with rich knit texture and soft atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOr8DYMEOT4gg91ICuzST9wKDB3Mt5xhTxce7sEJWZ5DN1sC1lrTMl80DeT3QM-cCJ-2SDy_HToI7-p7ct8wNxPqDMsDcUGI6oafLvabktz26AbtJUvnDHbkZt8YptaP0mXZhQ2HQchAJP2zQXIDeE5UYJGjgU6K4bgdzrX-byzpFULr48mxMhXMdojOHm5KEutaLh5DSCHL05tTttv-2G-s_Djdw92QHlBcjrWF2C-DErag6cEgbWkuI7WzkOXKwUCdv8dS4MKW0"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Cashmere Mock-Neck</h3>
+<span class="font-bold text-primary">$325.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Oatmeal Melange</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Leather Tote" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="structured black pebbled leather tote bag standing upright on a minimalist pedestal with sharp architectural shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXopjfh4VndR_5COwwmY4lUC0kUqjUInOeuBlSU9x_0-ysh8_XMoKuA5NZqC6PFcaA7eoMEI8vxzzsHbpB0jdifIKnTSvwli-TGk2Ja2_gXpseGJtv8sCNsDpd9h0pccKAONbbuPV6OUTZZ-_DgLtU4C9d6poQZjsqs-7qonHwUuYBAaa_qfp7KbD3FcNAUcq611Va4K7MDn4rcPT97YDhUoCg84M7_7E1s_C5UmVpXMymJPYIW8mMXLZdlDeFH_9-y54pE0ErAro"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-on-primary px-3 py-1 rounded text-[10px] font-extrabold uppercase tracking-widest">New</span>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Structured Studio Tote</h3>
+<span class="font-bold text-primary">$580.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Matte Black</p>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Tailored Pants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="pair of grey tailored wool trousers folded neatly on a white marble surface with bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl0dGHaJeGoWk8k7dqGbMvjPccC0D0DeVu1XgJd9TZzQ7-i6O_W36M898TWnNQ5M8-1KuuPmZdRmjMHkBGnz-uos2lZuwua9jS-C2PUD3sZPFoMhu8olEy9O5-Y_9cn5uvtgmDuiyYPrMuwkx6qiHKi9jvhdDx7jeMvcuod1Paj7H7u_IoM9rEyUXCVs082Ru-5Bmuv3HahUgI2o9hXuk8u1zDA7CIDx6k-hgzxUssVNgAWEEq7jpF5A4uw7R_KhpcQnxJHGbd6ks"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Pleated Wool Trouser</h3>
+<span class="font-bold text-primary">$185.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Light Grey</p>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] rounded-lg bg-surface-container-low mb-5">
+<img alt="Silver Watch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="luxury silver mechanical watch with a minimalist dial and mesh strap resting on a piece of raw dark granite" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYWChpx6Ta7fRfYj3vmTFoD7lce5feD7-mNAgzEjby32F-nHsQouPL8H6K4OUHr7TDLecbIl6t4HbLXno41dqf21l7znytTIwEipF_BJws9t0pcWtIkas2va9v2pyToDN-41avFxcVSHwKu6mD-azEgsQwrz0CHj6_K4Mejktawvj8B3aLlhWfnOgJI7px568xi9gyuFzsRmV_5eISlRGe0056iijQN0BGQe2xdgCXGvaX-BKS1FWPo3OGEWtL5URpjUQmBkK-ODc"/>
+<div class="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
+<button class="w-full custom-gradient-btn text-on-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                                    Quick Add
+                                </button>
+</div>
+</div>
+<div class="space-y-1 px-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-primary text-base">Temporal Mesh Watch</h3>
+<span class="font-bold text-primary">$1,150.00</span>
+</div>
+<p class="text-xs text-secondary font-medium">Brushed Silver</p>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-sm">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-primary font-bold text-sm hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-primary font-bold text-sm hover:bg-surface-container-high transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-['Inter'] text-sm w-full rounded-none mt-24">
+<div class="flex flex-col md:flex-row justify-between items-start gap-8 px-8 py-12 w-full max-w-7xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-bold text-slate-900 dark:text-slate-100 uppercase tracking-tighter">The Editorial Merchant</div>
+<p class="max-w-xs text-slate-500 dark:text-slate-400">
+                    A curated gallery of functional aesthetics. Redefining modern trade through a minimalist lens.
+                </p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-x-12 gap-y-8">
+<div class="flex flex-col gap-3">
+<span class="font-bold text-xs uppercase tracking-widest mb-2">Shop</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">All Collections</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">New Arrivals</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Archive</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-xs uppercase tracking-widest mb-2">Support</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Shipping Info</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Contact Us</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Returns</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-xs uppercase tracking-widest mb-2">Company</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">About</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Sustainability</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-xs uppercase tracking-widest mb-2">Legal</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+<div class="px-8 py-6 border-t border-slate-200/50 dark:border-slate-800/50 text-[10px] text-center md:text-left text-slate-400 uppercase tracking-widest">
+            © 2024 The Editorial Merchant. Built for the curated eye.
+        </div>
+</footer>
+</body></html>

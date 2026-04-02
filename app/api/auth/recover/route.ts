@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { storefrontApiRequest, CUSTOMER_RECOVER_MUTATION } from "@/lib/shopify";
-import { sendPasswordRecoveryFallback } from "@/lib/password-recovery-resend";
 
 export const runtime = "nodejs";
 
@@ -15,11 +14,7 @@ function isLikelyCustomerNotFound(message: string): boolean {
   );
 }
 
-/**
- * Password recovery: Shopify `customerRecover` first; if it fails, optionally
- * notify the user via Resend (RESEND_API_KEY + RESEND_FROM).
- * Response is always generic success for callers (no email enumeration).
- */
+/** Password recovery via Shopify `customerRecover` only (no custom provider). */
 export async function POST(req: NextRequest) {
   let body: { email?: string };
   try {
@@ -36,31 +31,18 @@ export async function POST(req: NextRequest) {
   try {
     const data = await storefrontApiRequest(CUSTOMER_RECOVER_MUTATION, { email });
     const errors = data?.data?.customerRecover?.customerUserErrors ?? [];
-
-    if (errors.length === 0) {
-      return NextResponse.json({ ok: true, channel: "shopify" });
+    // Always return generic success to prevent email enumeration.
+    // Shopify handles delivery policy/behavior.
+    if (errors.length > 0) {
+      const msg = errors[0]?.message ?? "";
+      if (!isLikelyCustomerNotFound(msg)) {
+        console.warn("[auth/recover] Shopify customerRecover warning:", msg);
+      }
     }
-
-    const msg = errors[0]?.message ?? "Unknown error";
-    const notFound = isLikelyCustomerNotFound(msg);
-
-    const fallback = await sendPasswordRecoveryFallback(
-      email,
-      notFound ? "not_found" : "shopify_error",
-    );
-
-    return NextResponse.json({
-      ok: true,
-      channel: fallback.sent ? "resend" : "none",
-      // omit details in production — helps debugging only when needed
-    });
+    return NextResponse.json({ ok: true });
   } catch (e) {
-    const fallback = await sendPasswordRecoveryFallback(email, "shopify_error");
-    if (fallback.sent) {
-      return NextResponse.json({ ok: true, channel: "resend" });
-    }
     console.error("[auth/recover]", e);
     // Still return generic success to avoid leaking whether email exists
-    return NextResponse.json({ ok: true, channel: "none" });
+    return NextResponse.json({ ok: true });
   }
 }

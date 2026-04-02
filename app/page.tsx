@@ -16,13 +16,13 @@ const canonical = getSiteUrl();
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Shop premium tech accessories and lifestyle products at KRYVO. Curated headphones, displays, wearables, and essentials — shipped with care.",
+    "Smart toys for smart kids. Explore educational toys, creative play kits, and learning games designed for modern families.",
   keywords: [...DEFAULT_KEYWORDS, "official store", "shop online"],
   alternates: { canonical },
   openGraph: {
     title: `${SITE_NAME} — Home`,
     description:
-      "Premium tech accessories and lifestyle products. Curated essentials for modern living.",
+      "Discover educational toys, creative toys, and games for kids.",
     url: canonical,
     images: getDefaultOpenGraphImages(),
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} — Home`,
     description:
-      "Premium tech accessories and lifestyle products. Curated essentials for modern living.",
+      "Discover educational toys, creative toys, and games for kids.",
     images: [getDefaultOgImage()],
   },
 };

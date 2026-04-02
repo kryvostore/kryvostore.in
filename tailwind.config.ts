@@ -18,8 +18,12 @@ export default {
         "8xl": "90rem", // 1440px
       },
       fontFamily: {
-        sans: ["'Roboto'", "system-ui", "sans-serif"],
-        display: ["'Luxora Grotesk'", "system-ui", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
+        /** Display / headlines — Manrope per Editorial Merchant design system */
+        display: ["'Manrope'", "system-ui", "sans-serif"],
+        headline: ["'Manrope'", "system-ui", "sans-serif"],
+        body: ["'Inter'", "system-ui", "sans-serif"],
+        label: ["'Inter'", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -69,6 +73,28 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        /** Editorial Merchant — tonal surfaces (stitch / DESIGN.md) */
+        surface: {
+          DEFAULT: "#f8f9fa",
+          dim: "#d9dadb",
+          bright: "#f8f9fa",
+        },
+        "on-surface": "#191c1d",
+        "on-surface-variant": "#41484b",
+        "surface-container": {
+          DEFAULT: "#edeeef",
+          low: "#f3f4f5",
+          high: "#e7e8e9",
+          highest: "#e1e3e4",
+          lowest: "#ffffff",
+        },
+        "surface-variant": "#e1e3e4",
+        "primary-container": "#002a3e",
+        "on-primary-container": "#6c92ad",
+        "primary-fixed-dim": "#a4cbe8",
+        /** Focus / strokes — avoid naming collision with Tailwind `outline-*` utilities */
+        "editorial-outline": "#71787b",
+        "outline-variant": "#c1c7cb",
       },
       borderRadius: {
         lg: "var(--radius)",

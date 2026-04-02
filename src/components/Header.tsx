@@ -15,9 +15,9 @@ import { SearchDialog } from "@/components/SearchDialog";
 
 const navLinks = [
 	{ to: "/collections", label: "All Products" },
-	{ to: "/about", label: "About Us" },
+	{ to: "/about", label: "About" },
 	{ to: "/contact", label: "Contact" },
-	{ to: "/track-order", label: "Track order" },
+	{ to: "/track-order", label: "Track Order" },
 ];
 
 interface HeaderProps {
@@ -25,7 +25,6 @@ interface HeaderProps {
 }
 
 export const Header = ({ onCartOpen }: HeaderProps) => {
-	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isAuthOpen, setIsAuthOpen] = useState(false);
 	const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
@@ -39,23 +38,11 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		const handleScroll = () => setIsScrolled(window.scrollY > 20);
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
-
-	useEffect(() => {
 		setIsMobileMenuOpen(false);
 	}, [pathname]);
 
 	return (
-		<header
-			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-				isScrolled
-					? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-					: "bg-background"
-			}`}
-		>
+		<header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-header">
 			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
 				<div className="flex items-center justify-between h-14 lg:h-16">
 					{/* Left logo */}
@@ -63,20 +50,20 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<img
 							src="/logo.png"
 							alt="KRYVO Logo"
-							className="w-24 h-24 sm:w-28 sm:h-28 object-contain -ml-2 group-hover:scale-105 transition-transform duration-300 dark:invert"
+							className="w-24 h-24 sm:w-28 sm:h-28 object-contain -ml-2 group-hover:scale-105 transition-transform duration-300"
 						/>
 					</Link>
 
-					{/* Center nav links */}
-					<nav className="hidden lg:flex items-center gap-1 bg-secondary/60 rounded-full px-2 py-1.5 border border-secondary shadow-inner absolute left-1/2 -translate-x-1/2">
+					{/* Center nav — no pill chrome; editorial underline active state */}
+					<nav className="hidden lg:flex items-center gap-x-8 absolute left-1/2 -translate-x-1/2">
 						{navLinks.map((link) => (
 							<Link
 								key={link.to}
 								href={link.to}
-								className={`text-[13px] font-medium transition-all duration-200 ease-out px-4 py-1.5 rounded-full tracking-wide ${
+								className={`font-display text-sm font-semibold tracking-tight transition-colors ${
 									pathname === link.to
-										? "bg-background text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
-										: "text-muted-foreground/80 hover:text-foreground hover:bg-black/[0.02]"
+										? "text-on-surface border-b-2 border-on-surface pb-1"
+										: "text-on-surface-variant hover:text-on-surface pb-1 border-b-2 border-transparent"
 								}`}
 							>
 								{link.label}
@@ -84,12 +71,12 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						))}
 					</nav>
 
-					{/* Right icons */}
+					{/* Right icons — tonal hover, no loud fills */}
 					<div className="flex items-center gap-1 sm:gap-2">
 						<Button
 							variant="ghost"
 							size="icon"
-							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full text-on-surface hover:bg-surface-container-high/80 relative"
 							onClick={() => setIsSearchOpen(true)}
 						>
 							<Search className="h-5 w-5" />
@@ -97,12 +84,12 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							className="hidden lg:flex h-10 w-10 min-w-10 rounded-full text-on-surface hover:bg-surface-container-high/80 relative"
 							onClick={() => setIsFavoritesOpen(true)}
 						>
 							<Heart className="h-5 w-5" />
 							{totalFavorites > 0 && (
-								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
+								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-primary text-primary-foreground border-none p-0 leading-none">
 									{totalFavorites}
 								</Badge>
 							)}
@@ -110,12 +97,12 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 text-foreground relative"
+							className="h-10 w-10 min-w-10 rounded-full text-on-surface hover:bg-surface-container-high/80 relative"
 							onClick={onCartOpen}
 						>
 							<ShoppingCart className="h-5 w-5" />
 							{totalItems > 0 && (
-								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-foreground text-background border-none p-0 leading-none">
+								<Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center text-[10px] bg-primary text-primary-foreground border-none p-0 leading-none">
 									{totalItems}
 								</Badge>
 							)}
@@ -123,7 +110,11 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<Button
 							variant="ghost"
 							size="icon"
-							className={`hidden lg:flex h-10 w-10 min-w-10 rounded-full transition-colors ${accessToken ? "bg-foreground text-background hover:bg-foreground hover:text-white" : "bg-secondary hover:bg-secondary/80 text-foreground"}`}
+							className={`hidden lg:flex h-10 w-10 min-w-10 rounded-full transition-colors ${
+								accessToken
+									? "btn-editorial-gradient text-primary-foreground hover:opacity-90"
+									: "text-on-surface hover:bg-surface-container-high/80"
+							}`}
 							onClick={() => {
 								if (accessToken) router.push("/account");
 								else setIsAuthOpen(true);
@@ -136,7 +127,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						<Button
 							variant="ghost"
 							size="icon"
-							className="lg:hidden text-foreground ml-1 h-10 w-10 min-w-10 rounded-full bg-secondary hover:bg-secondary/80 relative"
+							className="lg:hidden text-on-surface ml-1 h-10 w-10 min-w-10 rounded-full hover:bg-surface-container-high/80 relative"
 							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 						>
 							{isMobileMenuOpen ? (
@@ -159,19 +150,19 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 			{/* Mobile menu */}
 			<div
 				className={`lg:hidden transition-all duration-300 overflow-hidden ${
-					isMobileMenuOpen ? "max-h-[500px] border-b border-border" : "max-h-0"
+					isMobileMenuOpen ? "max-h-[500px]" : "max-h-0"
 				}`}
 			>
-				<nav className="container mx-auto px-6 pb-6 pt-2 flex flex-col gap-2 bg-background">
+				<nav className="container mx-auto px-6 pb-6 pt-2 flex flex-col gap-1 bg-surface">
 					{navLinks.map((link) => (
 						<Link
 							key={link.to}
 							href={link.to}
 							onClick={() => setIsMobileMenuOpen(false)}
-							className={`text-base font-medium transition-colors py-3 border-b border-border/40 ${
+							className={`text-base font-medium transition-colors py-3 px-2 rounded-md ${
 								pathname === link.to
-									? "text-foreground"
-									: "text-muted-foreground"
+									? "text-on-surface bg-surface-container-high/60"
+									: "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40"
 							}`}
 						>
 							{link.label}
@@ -181,7 +172,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 					{/* Mobile Secondary Actions (Search, Favorites, Account) */}
 					<div className="flex flex-col gap-1 pt-2 mt-2">
 						<button
-							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							className="flex items-center gap-3 text-[15px] font-medium py-3 px-2 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 text-left"
 							onClick={() => {
 								setIsSearchOpen(true);
 								setIsMobileMenuOpen(false);
@@ -190,7 +181,7 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 							<Search className="h-5 w-5" /> Search Products
 						</button>
 						<button
-							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							className="flex items-center gap-3 text-[15px] font-medium py-3 px-2 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 text-left"
 							onClick={() => {
 								setIsFavoritesOpen(true);
 								setIsMobileMenuOpen(false);
@@ -198,13 +189,13 @@ export const Header = ({ onCartOpen }: HeaderProps) => {
 						>
 							<Heart className="h-5 w-5" /> Saved Favorites{" "}
 							{totalFavorites > 0 && (
-								<span className="text-xs bg-foreground text-background px-2 py-0.5 rounded-full">
+								<span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">
 									{totalFavorites}
 								</span>
 							)}
 						</button>
 						<button
-							className="flex items-center gap-3 text-[15px] font-medium py-3 text-muted-foreground hover:text-foreground text-left"
+							className="flex items-center gap-3 text-[15px] font-medium py-3 px-2 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 text-left"
 							onClick={() => {
 								if (accessToken) router.push("/account");
 								else setIsAuthOpen(true);

@@ -38,41 +38,24 @@ export const Footer = () => {
 	};
 
 	return (
-		<footer className="bg-background pt-32 pb-8 border-t border-border">
+		<footer className="bg-surface-container-low pt-24 pb-8">
 			<div className="container mx-auto px-6 lg:px-8 max-w-7xl">
-				{/* Newsletter Section */}
-				<div className="bg-gradient-to-b from-[#FCFCFC] to-[#F8F8F8] rounded-[2.5rem] p-10 lg:p-20 text-center mb-24 lg:mb-32 relative overflow-hidden border border-black/[0.04] shadow-[0_2px_40px_-15px_rgba(0,0,0,0.03)]">
-					{/* Subtle staggered geometric block pattern background (CSS simulation) */}
-					<div className="absolute inset-0 pointer-events-none flex items-stretch overflow-hidden mix-blend-multiply opacity-60">
-						<div className="flex-1 border-r border-black/[0.02] bg-black/[0.01] mt-20"></div>
-						<div className="flex-1 border-r border-black/[0.02] mb-32 bg-black/[0.02]"></div>
-						<div className="flex-1 border-r border-black/[0.02] mt-40 bg-black/[0.015]"></div>
-						<div className="flex-1 border-r border-black/[0.02] my-12 bg-black/[0.01]"></div>
-						<div className="flex-1 border-r border-black/[0.02] mt-10 mb-40 bg-black/[0.03]"></div>
-						<div className="flex-1 border-r border-black/[0.02] mb-16 bg-black/[0.01]"></div>
-						<div className="flex-1 border-r border-black/[0.02] my-24 bg-black/[0.02]"></div>
-						<div className="flex-1 border-r border-black/[0.02] mt-32 bg-black/[0.015]"></div>
-						<div className="flex-1 mb-20 bg-black/[0.02]"></div>
-					</div>
-
+				{/* Newsletter — secondary surface, tonal depth (no 1px section borders) */}
+				<div className="rounded-2xl p-10 lg:p-20 text-center mb-24 lg:mb-32 relative overflow-hidden bg-surface-container-highest/50">
 					<div className="relative z-10 w-full flex flex-col items-center">
-						<h2 className="font-display text-3xl lg:text-[3.25rem] font-light leading-[1.5] mb-6 tracking-tight text-foreground">
-							Subscribe to our email
+						<h2 className="font-display text-3xl lg:text-[3.25rem] font-semibold leading-[1.2] mb-6 tracking-tight text-on-surface">
+							The editorial list
 							<br />
-							newsletter <br className="md:hidden" />
-							and get 15% off
+							<span className="text-on-primary-container">New arrivals & offers</span>
 						</h2>
-						<p className="text-muted-foreground/70 mb-10 max-w-[650px] mx-auto text-[13px] leading-relaxed">
-							Be the first to know about the latest in tech trends, exclusive
-							offers, and exciting
-							<br className="hidden sm:block" /> product launches by subscribing
-							to our newsletter.
+						<p className="text-on-surface-variant mb-10 max-w-[650px] mx-auto text-sm leading-relaxed">
+							Occasional notes on restocks, curated picks, and subscriber-only perks.
 						</p>
 						<form
 							onSubmit={handleSubscribe}
 							className="w-full max-w-[480px] mx-auto"
 						>
-							<div className="flex items-center bg-background rounded-full p-2 w-full shadow-sm border border-border/50 transition-all focus-within:shadow-md focus-within:border-foreground/30 hover:border-border/80">
+							<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 bg-surface-container-lowest rounded-xl p-2 w-full transition-all focus-within:outline focus-within:outline-2 focus-within:outline-editorial-outline">
 								<Input
 									type="email"
 									required
@@ -80,14 +63,14 @@ export const Footer = () => {
 									placeholder="Enter your email"
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
-									className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent h-[46px] px-6 shadow-none flex-1 text-[15px] placeholder:text-muted-foreground/60 placeholder:font-light disabled:opacity-50"
+									className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent h-[46px] px-6 shadow-none flex-1 text-[15px] rounded-xl placeholder:text-on-surface-variant/70 disabled:opacity-50"
 								/>
 								<Button
 									type="submit"
 									disabled={
 										status === "loading" || status === "success" || !email
 									}
-									className="rounded-full bg-foreground text-background hover:bg-foreground/80 h-[48px] px-8 font-medium text-[14px] shadow-none transition-all duration-[200ms] active:scale-[0.97]"
+									className="rounded-md h-[48px] px-8 font-medium text-[14px] shrink-0 transition-all duration-[200ms] active:scale-[0.97]"
 								>
 									{status === "loading" ? (
 										<Loader2 className="h-4 w-4 animate-spin my-0.5 mx-4" />
@@ -101,9 +84,8 @@ export const Footer = () => {
 
 							<div className="mt-4 h-6 flex items-center justify-center overflow-hidden">
 								{status === "success" && (
-									<p className="text-[#329971] text-[14px] font-medium flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
-										<CheckCircle2 className="w-4 h-4" /> You've been
-										successfully added to our list!
+									<p className="text-on-primary-container text-[14px] font-medium flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+										<CheckCircle2 className="w-4 h-4" /> You're on the list.
 									</p>
 								)}
 							</div>
@@ -119,22 +101,21 @@ export const Footer = () => {
 							href="/"
 							className="flex items-center gap-3 font-display text-2xl font-bold tracking-tight group"
 						>
-							<span className="text-foreground pt-0.5">KRYVO STORE</span>
+							<span className="text-on-surface pt-0.5">KRYVO</span>
 						</Link>
-						<p className="text-[14px] text-muted-foreground/90 leading-relaxed max-w-xs">
-							Selling premium tech products, designed to elevate your everyday
-							experience.
+						<p className="text-[14px] text-on-surface-variant leading-relaxed max-w-xs">
+							Curated products with the care of a gallery — quality, clarity, and calm shopping.
 						</p>
 						<div className="flex items-center gap-3 pt-2">
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-primary hover:text-primary-foreground transition-all duration-300"
 							>
 								<Facebook className="h-[18px] w-[18px]" />
 							</a>
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-primary hover:text-primary-foreground transition-all duration-300"
 							>
 								<Twitter className="h-[18px] w-[18px]" />
 							</a>
@@ -142,13 +123,13 @@ export const Footer = () => {
 								href="https://www.instagram.com/kryvostore.in?igsh=bHY2aXo4ajYwMnMy"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-primary hover:text-primary-foreground transition-all duration-300"
 							>
 								<Instagram className="h-[18px] w-[18px]" />
 							</a>
 							<a
 								href="#"
-								className="h-10 w-10 flex items-center justify-center rounded-full bg-secondary/80 text-foreground hover:bg-foreground hover:text-background hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+								className="h-10 w-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-primary hover:text-primary-foreground transition-all duration-300"
 							>
 								<Linkedin className="h-[18px] w-[18px]" />
 							</a>
@@ -202,6 +183,14 @@ export const Footer = () => {
 							>
 								Contact & FAQ
 							</Link>
+							<a
+								href="https://wa.me/919061061442"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
+							>
+								WhatsApp
+							</a>
 							<Link
 								href="/collections"
 								className="text-[14px] text-muted-foreground/80 hover:text-foreground hover:translate-x-1 transition-all duration-200"
@@ -263,9 +252,9 @@ export const Footer = () => {
 					</div>
 				</div>
 
-				{/* Copyright */}
-				<div className="pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between items-center gap-4">
-					<p className="text-[13px] text-muted-foreground/80 font-light">
+				{/* Copyright — spacing separation, no hairline rule */}
+				<div className="pt-12 mt-4 flex flex-col md:flex-row justify-between items-center gap-6">
+					<p className="text-[13px] text-on-surface-variant font-light">
 						© {new Date().getFullYear()} KRYVO. All rights reserved.
 					</p>
 					<div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">

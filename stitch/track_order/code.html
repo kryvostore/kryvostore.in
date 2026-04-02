@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Track Your Order | The Editorial Merchant</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#191c1d",
+              "on-primary-container": "#6c92ad",
+              "inverse-surface": "#2e3132",
+              "primary-fixed-dim": "#a4cbe8",
+              "tertiary": "#230b00",
+              "surface": "#f8f9fa",
+              "on-background": "#191c1d",
+              "tertiary-fixed-dim": "#f0bb9e",
+              "surface-tint": "#3c637c",
+              "tertiary-fixed": "#ffdbc8",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#111d22",
+              "surface-container-low": "#f3f4f5",
+              "outline": "#71787b",
+              "on-primary-fixed-variant": "#224b63",
+              "primary-fixed": "#c7e7ff",
+              "secondary": "#536066",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#2f1403",
+              "surface-dim": "#d9dadb",
+              "primary-container": "#002a3e",
+              "on-secondary-container": "#59666c",
+              "surface-variant": "#e1e3e4",
+              "surface-container-high": "#e7e8e9",
+              "surface-container-highest": "#e1e3e4",
+              "secondary-fixed-dim": "#bbc9cf",
+              "tertiary-container": "#3d1f0b",
+              "on-secondary-fixed-variant": "#3c494e",
+              "inverse-primary": "#a4cbe8",
+              "surface-bright": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#d7e5ec",
+              "on-tertiary-container": "#b28469",
+              "on-primary": "#ffffff",
+              "outline-variant": "#c1c7cb",
+              "on-secondary": "#ffffff",
+              "background": "#f8f9fa",
+              "inverse-on-surface": "#f0f1f2",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#623e28",
+              "surface-container": "#edeeef",
+              "secondary-container": "#d7e5ec",
+              "primary": "#001420",
+              "on-surface-variant": "#41484b",
+              "on-primary-fixed": "#001e2e",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #001420 0%, #002a3e 100%);
+        }
+        .editorial-shadow {
+            box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-slate-950 dark:text-slate-50 font-headline">
+                The Editorial Merchant
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-['Manrope'] tracking-tight" href="#">Collections</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-['Manrope'] tracking-tight" href="#">About</a>
+<a class="text-slate-950 dark:text-white font-semibold border-b-2 border-slate-950 dark:border-white pb-1 font-['Manrope'] tracking-tight" href="#">Track Order</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all rounded-full">
+<span class="material-symbols-outlined text-slate-950 dark:text-slate-50">favorite</span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all rounded-full">
+<span class="material-symbols-outlined text-slate-950 dark:text-slate-50">shopping_bag</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 min-h-screen">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Content & Image Column -->
+<div class="lg:col-span-7 relative">
+<div class="relative z-10">
+<span class="text-primary-fixed-dim font-semibold tracking-widest text-xs uppercase mb-4 block">Order Management</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-primary tracking-tighter mb-6 leading-tight">
+                        Follow the journey <br/>of your curation.
+                    </h1>
+<p class="text-secondary text-lg max-w-lg mb-8 leading-relaxed">
+                        Precision takes time. Enter your details below to see the real-time status of your editorial selection as it makes its way to your gallery.
+                    </p>
+</div>
+<!-- Decorative Image Layer (Asymmetric Layout) -->
+<div class="relative mt-12 w-full aspect-[4/3] lg:aspect-[16/9] overflow-hidden rounded-xl editorial-shadow">
+<img class="w-full h-full object-cover" data-alt="Minimalist luxury interior with a designer chair and soft sunlight shadows on a clean white wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhhQZxTZ_YP--CY2BoRvTNBo6GG_j9XQwf5eTosW32fHadS90FOyvaxe_w8Js-PWfyXMiyqSUhp1n8nJDcWCVVWD8oNmJnADLWcw6ja75M1XCOF3MAgGd0FVO6eERzylxAiRZP4dbayA2RLvzgiezkE3WqD5YYl-rruKQ26Q4KIVs6wT-9DP71SN9CVaUZ4HcDmRifxMQyuB_Fz3-P1Mrg80DMMUnBm7M-SW-W6NV-i_X5cbaPyV94uljoT9IA0oE90c4tu2MJeCY"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+</div>
+<!-- Form Column -->
+<div class="lg:col-span-5">
+<div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl editorial-shadow">
+<div class="mb-10">
+<h2 class="font-headline text-2xl font-bold text-primary mb-2">Locate Order</h2>
+<p class="text-on-surface-variant text-sm">Enter the credentials from your confirmation email.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold text-primary tracking-widest uppercase" for="order-id">Order Number</label>
+<input class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-outline rounded-lg px-4 py-4 text-primary font-medium placeholder:text-outline-variant transition-all" id="order-id" placeholder="EM-78294" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold text-primary tracking-widest uppercase" for="email">Email Address</label>
+<input class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-outline rounded-lg px-4 py-4 text-primary font-medium placeholder:text-outline-variant transition-all" id="email" placeholder="name@curated.com" type="email"/>
+</div>
+<div class="pt-4">
+<button class="btn-gradient w-full py-5 text-on-primary font-semibold rounded-md shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 group">
+<span>Track Shipment</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+<div class="mt-12 space-y-4">
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary-fixed-dim">info</span>
+<div class="text-xs text-secondary leading-relaxed">
+<span class="font-bold text-primary block mb-1">Processing Notice</span>
+                                Tracking numbers may take 24-48 hours to update once your order has been dispatched from our studio.
+                            </div>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant px-4">
+<span class="material-symbols-outlined text-xs">help</span>
+<span>Need assistance? <a class="underline text-primary" href="#">Contact the concierge.</a></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 flex flex-col md:flex-row justify-between items-start gap-8 px-8 py-12 w-full mt-24">
+<div class="space-y-4">
+<div class="text-lg font-bold text-slate-900 dark:text-slate-100 font-headline">
+                The Editorial Merchant
+            </div>
+<p class="font-['Inter'] text-sm text-slate-500 max-w-xs">
+                Curating the exceptional for the discerning eye.
+            </p>
+<p class="font-['Inter'] text-sm text-slate-500">© 2024 The Editorial Merchant. Built for the curated eye.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-2 gap-x-12 gap-y-4">
+<a class="font-['Inter'] text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Shipping Info</a>
+<a class="font-['Inter'] text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Contact Us</a>
+</div>
+</footer>
+</body></html>

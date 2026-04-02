@@ -125,6 +125,9 @@ export interface ShopifyProduct {
     description: string;
     descriptionHtml?: string;
     handle: string;
+    productType?: string;
+    tags?: string[];
+    createdAt?: string;
     priceRange: {
       minVariantPrice: {
         amount: string;
@@ -182,7 +185,16 @@ export const PRODUCTS_QUERY = `
           title
           description
           handle
+          productType
+          tags
+          createdAt
           priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          compareAtPriceRange {
             minVariantPrice {
               amount
               currencyCode
@@ -202,6 +214,10 @@ export const PRODUCTS_QUERY = `
                 id
                 title
                 price {
+                  amount
+                  currencyCode
+                }
+                compareAtPrice {
                   amount
                   currencyCode
                 }
@@ -226,6 +242,8 @@ export const PRODUCTS_QUERY = `
 export const FEATURED_PRODUCTS_BY_COLLECTION_QUERY = `
   query FeaturedProductsByCollection($handle: String!, $first: Int!) {
     collection(handle: $handle) {
+      title
+      handle
       products(first: $first) {
         edges {
           node {
@@ -233,7 +251,16 @@ export const FEATURED_PRODUCTS_BY_COLLECTION_QUERY = `
             title
             description
             handle
+            productType
+            tags
+            createdAt
             priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            compareAtPriceRange {
               minVariantPrice {
                 amount
                 currencyCode
@@ -253,6 +280,10 @@ export const FEATURED_PRODUCTS_BY_COLLECTION_QUERY = `
                   id
                   title
                   price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
                     amount
                     currencyCode
                   }

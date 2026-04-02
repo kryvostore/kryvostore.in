@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Curation | The Editorial Merchant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#191c1d",
+              "on-primary-container": "#6c92ad",
+              "inverse-surface": "#2e3132",
+              "primary-fixed-dim": "#a4cbe8",
+              "tertiary": "#230b00",
+              "surface": "#f8f9fa",
+              "on-background": "#191c1d",
+              "tertiary-fixed-dim": "#f0bb9e",
+              "surface-tint": "#3c637c",
+              "tertiary-fixed": "#ffdbc8",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#111d22",
+              "surface-container-low": "#f3f4f5",
+              "outline": "#71787b",
+              "on-primary-fixed-variant": "#224b63",
+              "primary-fixed": "#c7e7ff",
+              "secondary": "#536066",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#2f1403",
+              "surface-dim": "#d9dadb",
+              "primary-container": "#002a3e",
+              "on-secondary-container": "#59666c",
+              "surface-variant": "#e1e3e4",
+              "surface-container-high": "#e7e8e9",
+              "surface-container-highest": "#e1e3e4",
+              "secondary-fixed-dim": "#bbc9cf",
+              "tertiary-container": "#3d1f0b",
+              "on-secondary-fixed-variant": "#3c494e",
+              "inverse-primary": "#a4cbe8",
+              "surface-bright": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#d7e5ec",
+              "on-tertiary-container": "#b28469",
+              "on-primary": "#ffffff",
+              "outline-variant": "#c1c7cb",
+              "on-secondary": "#ffffff",
+              "background": "#f8f9fa",
+              "inverse-on-surface": "#f0f1f2",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#623e28",
+              "surface-container": "#edeeef",
+              "secondary-container": "#d7e5ec",
+              "primary": "#001420",
+              "on-surface-variant": "#41484b",
+              "on-primary-fixed": "#001e2e",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl transition-all">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-slate-950 dark:text-slate-50 font-headline">
+                The Editorial Merchant
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-label" href="#">Collections</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-label" href="#">About</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-label" href="#">Track Order</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all p-2 rounded-full">
+<span class="material-symbols-outlined text-slate-950 dark:text-slate-50" data-icon="favorite">favorite</span>
+</button>
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all p-2 rounded-full relative">
+<span class="material-symbols-outlined text-slate-950 dark:text-slate-50" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 max-w-7xl mx-auto min-h-screen">
+<!-- Editorial Header -->
+<header class="mb-16">
+<h1 class="font-headline text-5xl font-extrabold tracking-tighter mb-4 text-primary uppercase">Your Curation</h1>
+<p class="text-secondary max-w-lg leading-relaxed">
+                Refining your selection. Every piece here has been chosen for its architectural integrity and modern utility.
+            </p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Cart Items List -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Item 1 -->
+<div class="flex flex-col md:flex-row gap-8 items-start group">
+<div class="w-full md:w-48 aspect-[4/5] overflow-hidden rounded-lg bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist architectural desk lamp with matte black finish sitting on a clean white desk in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuEW6PF7Y5ewLezfzY4IBOFRAqqT_QJ8Wd_NA5vkTmsgusBm7DQx_IMlEU5i1ivygvZGA6oFH6chvJkCB-cknyusAIWiFQc4l6NRz9GXQ_9d8LuQcyb8IiR9uSi0HmnAfqJwnp66rXzBTgcPEb8PnXR35agevwAAHAZ2J4DsrV9PMwp4Uvgp14j0GH816UUhc-a52SlBYeRF_LsBfgwXqr8u2YFbrW_CGGpzNrlDrm_l_x5IboGAhkTAMKOo5Y1m8fX0Zu-rodjUU"/>
+</div>
+<div class="flex-grow space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-xl font-bold text-primary tracking-tight">The Obsidian Task Lamp</h3>
+<p class="text-sm text-secondary mt-1">Matte Black / Aerospace Grade Aluminum</p>
+</div>
+<span class="font-headline font-bold text-lg">$245.00</span>
+</div>
+<div class="flex items-center gap-8 pt-4">
+<div class="flex items-center bg-surface-container-low rounded-md">
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="px-4 font-bold text-sm">01</span>
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+<button class="text-xs uppercase tracking-widest font-bold text-secondary hover:text-error transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span> Remove
+                            </button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col md:flex-row gap-8 items-start group">
+<div class="w-full md:w-48 aspect-[4/5] overflow-hidden rounded-lg bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up of a high-quality textured gray wool blanket draped over a mid-century modern armchair in a bright airy room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3A6pmoWI7VcGl_GTXgwBmq_sK53OBOkDaqQe-hnq2XEczriLkGSlUIAoIEIEKdPKP-DrWI3kqeQwBkXGW90shlVJqlsIaM6a6Q3Qrr3VWve6Lak2yt6UUPsR6wnx3tdaSrYyJiqYaP4ZDnQpccdu_99XVLwiRmtLywChMDz4h-JqRzcSnkAprPXyVKhbbb1elVD6Cn3IpShfqyRGBqiIgbAUugTraJkHYtiv64ERqpMkhpbt6SFvmJ2FIVcXfotLvs0E_L1mjnJ8"/>
+</div>
+<div class="flex-grow space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-xl font-bold text-primary tracking-tight">Heavyweight Merino Throw</h3>
+<p class="text-sm text-secondary mt-1">Fog Grey / Ethically Sourced Wool</p>
+</div>
+<span class="font-headline font-bold text-lg">$180.00</span>
+</div>
+<div class="flex items-center gap-8 pt-4">
+<div class="flex items-center bg-surface-container-low rounded-md">
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="px-4 font-bold text-sm">02</span>
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+<button class="text-xs uppercase tracking-widest font-bold text-secondary hover:text-error transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span> Remove
+                            </button>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col md:flex-row gap-8 items-start group">
+<div class="w-full md:w-48 aspect-[4/5] overflow-hidden rounded-lg bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Sculptural glass carafe and matching tumbler set with a unique bubble texture on a stone countertop with dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBevcHEqA6IG6WBwwhgQEYOftSqXOLEOS6SDC29Yt95yxJiCUqVxH0d9ZBxTcGD1NmhkHP_laxV1w_CwPjhbuCZonQ5rB5mF_RCIYOHmOwBzC1j0JdqPHIf-tEAh5QvuI_HPi-U4XZaLqtSvmGrRsjkqJfmpIg-HLyy9tQWdTBRIcB2PnM28hwBoKHbG3rOEplA6LZY2gEvE5N8FTlLFyYaBphMTdRbLpX2cEDsERyB1fL8fYmlrU7K8xrT1erk_dmNoeQcW8aZczo"/>
+</div>
+<div class="flex-grow space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-xl font-bold text-primary tracking-tight">Brutalist Glass Carafe</h3>
+<p class="text-sm text-secondary mt-1">Clear / Hand-blown Borosilicate</p>
+</div>
+<span class="font-headline font-bold text-lg">$85.00</span>
+</div>
+<div class="flex items-center gap-8 pt-4">
+<div class="flex items-center bg-surface-container-low rounded-md">
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="px-4 font-bold text-sm">01</span>
+<button class="p-2 hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+<button class="text-xs uppercase tracking-widest font-bold text-secondary hover:text-error transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span> Remove
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary Sidebar -->
+<aside class="lg:col-span-4 sticky top-32">
+<div class="bg-surface-container-low p-10 rounded-xl space-y-8">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-primary">Order Summary</h2>
+<div class="space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-secondary">Subtotal</span>
+<span class="font-bold text-primary">$690.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-secondary">Shipping Estimate</span>
+<span class="font-bold text-primary">$0.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-secondary">Tax Estimate</span>
+<span class="font-bold text-primary">$55.20</span>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30"></div>
+<div class="flex justify-between items-baseline">
+<span class="font-headline font-extrabold text-lg uppercase tracking-wider">Total</span>
+<span class="font-headline font-extrabold text-3xl">$745.20</span>
+</div>
+<div class="pt-4 space-y-4">
+<button class="w-full py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold tracking-widest uppercase text-sm rounded-md transition-all active:scale-95 shadow-lg shadow-primary/10">
+                            Proceed to Checkout
+                        </button>
+<p class="text-[10px] text-center text-outline uppercase tracking-[0.2em] leading-relaxed">
+                            Complimentary shipping on orders over $500. Secured by 256-bit SSL encryption.
+                        </p>
+</div>
+<div class="pt-4">
+<label class="block text-xs font-bold uppercase tracking-widest text-secondary mb-3">Promo Code</label>
+<div class="flex gap-2">
+<input class="flex-grow bg-surface-container-lowest border-none focus:ring-2 focus:ring-outline p-3 text-sm rounded-sm" placeholder="Enter code" type="text"/>
+<button class="bg-surface-container-high px-4 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-outline-variant transition-colors">Apply</button>
+</div>
+</div>
+</div>
+<!-- Trusted Brands / Badges Asymmetric Layout -->
+<div class="mt-8 flex flex-wrap gap-4 opacity-50 grayscale transition-all hover:grayscale-0">
+<span class="text-[10px] font-bold border border-outline-variant px-2 py-1 uppercase">Stripe Secure</span>
+<span class="text-[10px] font-bold border border-outline-variant px-2 py-1 uppercase">Apple Pay</span>
+<span class="text-[10px] font-bold border border-outline-variant px-2 py-1 uppercase">Carbon Neutral</span>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="flex flex-col md:flex-row justify-between items-start gap-8 px-8 py-12 w-full mt-24 bg-slate-100 dark:bg-slate-950 font-body text-sm text-slate-900 dark:text-slate-100">
+<div class="max-w-xs space-y-4">
+<div class="text-lg font-bold text-slate-900 dark:text-slate-100 font-headline tracking-tight">The Editorial Merchant</div>
+<p class="text-slate-500 dark:text-slate-400">Curating the finest essential artifacts for the modern professional. Built for the eye that demands precision.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-12">
+<div class="flex flex-col gap-3">
+<span class="font-bold uppercase tracking-widest text-[10px] text-slate-400 mb-2">Assistance</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Shipping Info</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Track Order</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Contact Us</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold uppercase tracking-widest text-[10px] text-slate-400 mb-2">Legal</span>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-opacity hover:opacity-80" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="md:text-right space-y-4">
+<p class="text-slate-500 dark:text-slate-400">© 2024 The Editorial Merchant. Built for the curated eye.</p>
+<div class="flex gap-4 md:justify-end">
+<span class="material-symbols-outlined text-slate-400" data-icon="public">public</span>
+<span class="material-symbols-outlined text-slate-400" data-icon="shield">shield</span>
+</div>
+</div>
+</footer>
+</body></html>

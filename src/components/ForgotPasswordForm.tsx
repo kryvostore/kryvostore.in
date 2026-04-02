@@ -39,7 +39,7 @@ export function ForgotPasswordForm({
     onSuccess: () => {
       toast.success("Check your email", {
         description:
-          "If an account exists for that address, you’ll receive a link to reset your password. Otherwise we may have sent a short note from our mail system.",
+          "If an account exists for that address, Shopify will send a link to reset your password.",
       });
       onSent?.();
     },
