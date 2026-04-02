@@ -671,6 +671,41 @@ export const GET_CUSTOMER_QUERY = `
               amount
               currencyCode
             }
+            lineItems(first: 50) {
+              edges {
+                node {
+                  id
+                  title
+                  quantity
+                  currentQuantity
+                  variant {
+                    title
+                    image {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+            }
+            successfulFulfillments(first: 10) {
+              trackingCompany
+              trackingInfo(first: 10) {
+                number
+                url
+              }
+              fulfillmentLineItems(first: 50) {
+                edges {
+                  node {
+                    quantity
+                    lineItem {
+                      id
+                      title
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
