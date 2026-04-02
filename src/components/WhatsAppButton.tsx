@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export const WhatsAppButton = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const phoneNumber = "9061061442"; 
+  const phoneNumber = "9061061442";
   const message = "Hi Kryvo Store, I need some help!";
 
   useEffect(() => {
@@ -26,8 +26,10 @@ export const WhatsAppButton = () => {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ease-out transform ${
-        isVisible ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-95 pointer-events-none"
+      className={`fixed bottom-3 right-4 md:bottom-6 md:right-6 z-50 transition-all duration-500 ease-out transform ${
+        isVisible
+          ? "translate-y-0 opacity-100 scale-100"
+          : "translate-y-10 opacity-0 scale-95 pointer-events-none"
       }`}
     >
       <div className="relative group">
@@ -36,16 +38,16 @@ export const WhatsAppButton = () => {
           Chat with us
           <div className="absolute -bottom-1 right-6 w-2 h-2 bg-foreground rotate-45"></div>
         </div>
-        
+
         <Button
           onClick={handleClick}
           size="icon"
-          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl shadow-[#25D366]/20 transition-transform active:scale-95 group-hover:-translate-y-1"
+          className="md:w-16 md:h-16 w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl shadow-[#25D366]/20 transition-transform active:scale-95 group-hover:-translate-y-1"
         >
           <svg
             viewBox="0 0 24 24"
-            width="28"
-            height="28"
+            width="40"
+            height="40"
             stroke="currentColor"
             strokeWidth="2"
             fill="none"

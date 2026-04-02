@@ -33,7 +33,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-surface pb-16">
       {/* Hero — full-bleed background image, copy only (no collection product imagery) */}
-      <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-24">
+      <section className="relative w-full min-h-[800px] md:min-h-screen flex flex-col justify-center overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-24">
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
             src={HERO_BACKGROUND_IMAGE}
@@ -56,7 +56,7 @@ const Index = () => {
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
           <div className="max-w-2xl xl:max-w-3xl">
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1] text-on-surface [text-shadow:0_1px_2px_rgba(248,249,250,0.8)]">
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1] text-on-surface [text-shadow:0_1px_2px_rgba(248,249,250,0.8)]">
               Objects of
               <br />
               <span className="text-on-primary-container">

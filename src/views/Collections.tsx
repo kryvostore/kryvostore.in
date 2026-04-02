@@ -137,7 +137,7 @@ const Collections = () => {
   return (
     <div className="min-h-screen bg-surface pb-24 lg:pb-14">
       {/* Banner — dark gradient, left-aligned title + breadcrumb */}
-      <div className="relative w-full overflow-hidden bg-gradient-to-br from-[#001420] via-[#071a26] to-black pt-20 sm:pt-36 pb-28 sm:pb-32 lg:pb-36">
+      <div className="relative w-full overflow-hidden bg-gradient-to-br from-[#001420] via-[#071a26] to-black pt-32 md:pt-36 pb-28 sm:pb-32 lg:pb-36">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_25%,rgba(164,203,232,0.12),transparent_55%),radial-gradient(ellipse_50%_45%_at_85%_70%,rgba(255,255,255,0.04),transparent_50%)]"
           aria-hidden
@@ -162,52 +162,48 @@ const Collections = () => {
       </div>
 
       {/* Main panel — rounded top, overlaps banner */}
-      <div className="relative z-20 -mt-14 sm:-mt-16 lg:-mt-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-t-[1.75rem] sm:rounded-t-[2rem] lg:rounded-t-[2.5rem] bg-surface-container-lowest shadow-ambient px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+      <div className="relative z-20 -mt-14 sm:-mt-16 lg:-mt-20 w-full rounded-t-[1.75rem] sm:rounded-t-[2rem] lg:rounded-t-[2.5rem]  bg-surface-container-lowest px-4 sm:px-6 lg:px-8">
+        <div className=" max-w-7xl mx-auto px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
           {/* Category pills + sort / filter toolbar */}
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-8 mb-8">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-              <button
-                type="button"
-                onClick={() => setCategoryPill(null)}
-                className={`rounded-full px-4 py-2.5 text-sm font-medium font-body transition-colors ${
-                  isAllCategories
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
-                }`}
+            {/* Mobile: horizontal scroll; outer clips; lg+: wrap normally */}
+            <div className="w-full min-w-0 overflow-hidden lg:overflow-visible">
+              <div
+                className="flex items-center gap-2 sm:gap-2.5 min-w-0 max-lg:flex-nowrap max-lg:overflow-x-auto max-lg:overflow-y-hidden max-lg:pb-1 max-lg:scrollbar-hide max-lg:[-webkit-overflow-scrolling:touch] lg:flex-wrap lg:overflow-visible"
+                role="tablist"
+                aria-label="Product categories"
               >
-                All
-              </button>
-              {PRODUCT_TYPES.map((type) => {
-                const active = activeSingleType === type;
-                return (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setCategoryPill(active ? null : type)}
-                    className={`rounded-full px-4 py-2.5 text-sm font-medium font-body transition-colors max-w-[200px] truncate sm:max-w-none ${
-                      active
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
-                    }`}
-                  >
-                    {type}
-                  </button>
-                );
-              })}
+                <button
+                  type="button"
+                  onClick={() => setCategoryPill(null)}
+                  className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium font-body transition-colors ${
+                    isAllCategories
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
+                  }`}
+                >
+                  All
+                </button>
+                {PRODUCT_TYPES.map((type) => {
+                  const active = activeSingleType === type;
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setCategoryPill(active ? null : type)}
+                      className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium font-body transition-colors ${
+                        active
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-surface-container-high text-on-surface hover:bg-surface-container-highest"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto">
-              <Button
-                variant="outline"
-                className="lg:hidden rounded-full border-transparent bg-surface-container-high flex-1 sm:flex-none"
-                onClick={() => setIsFilterOpen(true)}
-              >
-                <SlidersHorizontal className="h-4 w-4 mr-2" />
-                Filters
-              </Button>
-              <label className="sr-only" htmlFor="collections-sort">
-                Sort by
-              </label>
               <select
                 id="collections-sort"
                 value={sortBy}
@@ -344,12 +340,13 @@ const Collections = () => {
                   )}
                 </>
               ) : (
-                <div className="text-center py-20 rounded-xl bg-surface-container-low">
-                  <p className="text-on-surface text-xl mb-3 font-display font-semibold">
-                    No products match your filters
+                <div className="text-center py-20 rounded-xl border md:bg-surface-container-low">
+                  <p className="text-on-surface text-lg md:text-xl mb-3 font-display font-semibold">
+                    No products <br className="md:hidden" /> match your filters
                   </p>
                   <p className="text-sm text-on-surface-variant font-body">
-                    Try changing availability, price range, or product type.
+                    Try changing availability, <br className="md:hidden" />{" "}
+                    price range, or product type.
                   </p>
                   <Button onClick={clearFilters} className="mt-5">
                     Clear filters
@@ -469,7 +466,7 @@ const Collections = () => {
         </div>
       )}
 
-      <div className="fixed bottom-4 left-0 right-0 z-40 px-4 lg:hidden">
+      <div className="fixed bottom-4 left-0 right-0 w-[80%] z-40 px-4 lg:hidden">
         <Button
           onClick={() => setIsFilterOpen(true)}
           className="w-full h-12 shadow-ambient"
